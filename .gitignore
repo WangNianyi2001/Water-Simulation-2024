@@ -1,0 +1,12 @@
+# Unity
+/Library
+/Logs
+/obj
+/Temp
+/UserSettings
+
+# Visual Studio
+/.vs
+/.vsconfig
+/*.csproj
+/*.sln
