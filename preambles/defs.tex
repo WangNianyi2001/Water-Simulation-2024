@@ -1,0 +1,19 @@
+% Draft environment
+\newenvironment{draft}{
+	\color{black!50}
+}{}
+
+% Placeholder
+\newcommand{\placeholder}[2]{
+	\fbox{\begin{minipage}{#1}
+		placeholder
+		\hspace{#1}
+		\vspace{#2}
+	\end{minipage}}
+}
+
+% "Citation needed" mark
+\newcommand{\citationNeeded}{\textsuperscript{[\textit{citation needed}]}}
+
+% Random comment
+\newcommand{\randomComment}[1]{{\small(\emph{#1})}}
