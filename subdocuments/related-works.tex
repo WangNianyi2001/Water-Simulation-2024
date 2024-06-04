@@ -1,0 +1,33 @@
+\section{Related Works}
+Before the year of 2000, principles and methods of realtime water simulation did have been proposed by researchers\cite{CHE97}, but only theoretically.
+Although many of the researches are labelled as ``realtime'' or ``interactive'', due to the limitation of the hardware performance of the time, these researches could only be used to simulate fluid bodies in a small volume of a virtual space.
+
+Only in the later half of the 2000 decade, researches on true interactive fluid simulation started appearing.
+An earliest example could be a study in 2008\cite{JUD08}, where an algorithm of simulating the motion of large water bodies on a open terrain is proposed.
+However, researches of this period are still not suitable for our problem:
+Either that they only cares the water's behavior on a large, terrain-level scale;
+or that they are too focused on simulating the detailed local behavior of the water body.
+With these methods, we cannot smoothly transition the local and large-scale water behavior without costing extra performance.
+
+In 2020, an algorithm for simulating sinking solids was proposed\cite{RBM20}.
+It can simulate the buoyancing behavior in realtime, however though, there are some limitations of their methods:
+\begin{enumerate}
+	\item It uses baked proxy volumes to store and calculate ``how waterlogged'' each section of a solid object are.
+
+		Using a proxy mesh could cause potential problems.
+		For example, the visual appearance of the object could change in runtime.
+		If the proxy mesh doesn't change along, artifacts may be induced;
+		but if the developer does remember to synchronize them, then baking would be performed in runtime, which leads to performance issue.
+		Also, this proxy-based calculation is itself a simplification of the underlying physical effect.
+		It may be able to produce an okay result for normal meshes, but on overly-simple or too-complex meshes, it might look off.
+
+	\item It modifies the velocities of the solid objects' directly.
+
+		Modifying physical properties directly is usually avoided in physical simulations, as there might be many other effects that are happening at the same time.
+		If one of them directly modifies the target property, it is practically messing with all the other effects by ignoring and overwriting their contributions.
+		Normally, developers would like algorithms to add their physical contributions onto the bodies.
+
+\end{enumerate}
+Other methods, as discussed in the above article, are either not suitable for interactive applications or not physically accurate.
+
+\fbox{\begin{minipage}{\textwidth}todo\end{minipage}}

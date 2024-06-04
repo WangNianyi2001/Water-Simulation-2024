@@ -1,88 +1,4 @@
-\section{A Realistic Buoyancy Model}
-
-To come out with a better model, we will start off by studying the underlying physical mechanisms of the buoyancy force.
-
-\subsection{Problems With Archimede's Principle}
-
-Back to 246 BC, the ancient Greek philosopher Archimede has proposed his now-famous principle on buoyancy:
-\begin{quote}
-	Any object immersed in a fluid is subject to an upward buoyancy force equal to the weight of the fluid displaced by the object.
-\end{quote}
-This princle is correct in most of the cases;
-however, there are still some edge cases where it will fail.
-Before showing the cases, we need to understand why the princle holds in the first place.
-
-The net buoyancy force can be seen as the unity of all the pressuring force from surrounding water applied on the floating object.
-The strength of water pressure is related to many variables, including the water's density, its velocity field, the local gravity strength, etc;
-but in static water, the pressure (force per unit surface area) at the same height can be seen as the same, proportional to the depth to the water surface (\ref{static-water-pressure}).
-\begin{equation}
-	P=\rho gh.
-	\label{static-water-pressure}
-\end{equation}
-where $P$ is the pressure, $\rho$ is the fluid density, $g$ is the local gravity strength, and $h$ is the depth to the water surface.
-For each small area $\mathrm{d}s$ with the normal direction $\mathbf n$, the surrounding fluid would cause a pressuring force of $-\mathbf nP\mathrm{d}s$ on it.
-We can integrate this around the whole surface to get the net force (\ref{net-water-pressuring-force}).
-\begin{equation}
-	\mathbf{F}_P=\oiint_{S}-\mathbf nP\mathrm{d}s.
-	\label{net-water-pressuring-force}
-\end{equation}
-If the object is fully sunk, we then have that the integrating surface would be the boundary of the object's volume ($S=\partial V$), which is guaranteed to be a 3D manifold.
-Under this assumption, using the \emph{divergence theorem} in multi-variable integration, formula \ref{net-water-pressuring-force} can be continued (\ref{archimedes-principle-formula}).
-\begin{equation}
-	\mathbf{F}_P=\iiint_{V}\rho\mathrm{d}v=-\rho\mathbf{g}|V|.
-	\label{archimedes-principle-formula}
-\end{equation}
-This yields exactly the Archimede's principle.
-
-Surprisingly, when the object is only partially sunk, this equation still holds;
-just that the $V$ now means only the sunk part of the geometry.
-The reason that it still holds is because after taking a cut of the geometry at the water surface, the water pressure on newly cut surface would be zero, since it is overlapping with the water surface.
-
-Together, the two cases make up the Archimede's principle.
-They are covering the most cases that most people will ever face, so the principle could be used with no problem.
-However, in the figure \ref{archimedes-principle-failing-case} below, Archimede's principle fails to hold on the two orange boxes.
-
-\begin{figure}[h]
-	\begin{center}
-		\includegraphics[width=1.3in]{figures/ap-blind-spot.png}
-	\end{center}
-	\caption{When Archimede's principle fails to hold.}
-	\label{archimedes-principle-failing-case}
-\end{figure}
-
-Both of the two boxes have one of their surfaces sticking to the wall, but neither of the surfaces are overlapping the water's surface.
-This means that if they are really touching the water, they should receive a non-zero pressure.
-If we are still following formula (\ref{archimedes-principle-formula}), which is derived upon the divergence theorem, we will be incorrectly taking the wall-surfaces' fake pressure into the sum of the net force, thus leading to a wrong result.
-
-To deal with such case, we could explicitly calculate the original integral following formula (\ref{net-water-pressuring-force}) to get the correct result; but an immediate problem is that it would require us to actually integrate all the infinitesimals.
-This is imposible for computers to achieve, so we need to transform them into finite surface fragments (i.e. the \emph{Finite Element Method}).
-
-Thankfully, all most common 3D model formats are based on polygons, so this can be done with no difficulties.
-The updated formula looks like (\ref{discretized-pressuring-force}).
-\begin{equation}
-	\mathbf{F}_P=\sum_{\text{face}}-\mathbf{n}\rho h|\text{face}|.
-	\label{discretized-pressuring-force}
-\end{equation}
-
-Although this formula can be directly calculated by a computer, it leads to two new problems:
-\begin{enumerate}
-	\item It could be a huge performance cost to iterate through all surfaces of a mesh.
-	\item After discretizing into non-infinitesimal surfaces, the simple-and-nice $\rho h$ for calculating the pressure doesn't hold anymore.
-\end{enumerate}
-
-The first problem is rather easy to see;
-and the reason for the second problem is that, as though the position for an infinitesimal of the surface is clearly defined, a small surface fragment has its extend in the space.
-Most commonly, a surface is not aligned directly to the Y-axis, and the different parts of it would be at different depth, resulting in experiencing different pressure (figure \ref{water-pressure-differs-on-surface}).
-
-\begin{figure}[h]
-	\begin{center}
-		\includegraphics[width=3in]{figures/water-pressure-on-small-surface.png}
-	\end{center}
-	\caption{The water pressure differs on a surface.}
-	\label{water-pressure-differs-on-surface}
-\end{figure}
-
-\subsection{Applying the Monte-Carlo Method}
+\section{Applying the Monte-Carlo Method}
 
 By using the \emph{Monte-Carlo method}, the above two problems could be resolved.
 It is a methodology of using a set of local information on random samples to estimate the accurate value, at a cost of certain amount of noise.
@@ -98,7 +14,7 @@ To apply the Monte-Carlo method, there are the following steps:
 	\item Regularize the summed-up result.
 \end{enumerate}
 
-\subsubsection{Sampling Over the Surface}
+\subsection{Sampling Over the Surface}
 
 As already introduced previously, most game engines have poor interfaces for querying the geometry information of models, so they cannot be relied on. Sampling in the UV space might work, but there are some problems:
 \begin{itemize}
@@ -131,7 +47,7 @@ An important trait of a Monte-Carlo approach is that the balance between quality
 The higher the sample rate, the better the resulting quality, but it might cause a burden on performance;
 vice versa, one could decrease the sample rate and sacrifices the quality to get a better performance.
 
-\subsubsection{Calculating the Force on Each Sample}
+\subsection{Calculating the Force on Each Sample}
 
 Once we have the whole surface of the body model sampled, we can calculate the local water pressure forces applied on the samples.
 Similar to equation (\ref{discretized-pressuring-force}), the pressure force for a sample point would be (\ref{sample-pressure-force}).
@@ -169,7 +85,7 @@ Where the $\text{arm}(s)$ is the position displacement from the sample point to 
 Notice that here to add the forces together along with their positions, the $\bigoplus$ symbol is used instead of $\sum$, which is kind of a non-standard usage.
 This is because that forces applied on a physical body \emph{at specific locations} can not be simply added together.
 
-\subsubsection{Composing the Forces Together}
+\subsection{Composing the Forces Together}
 
 To see why, one could imagine a pair of opposite forces applied on the same body, but displaced from its center of mass (figure \ref{force-pair}).
 
