@@ -9,8 +9,8 @@ As far as we know, it is not easy to simulate this coupling due to the nature of
 it is even harder to accomplish in realtime.
 
 The critical reason that causes the difficulty is that fluid matter don't have a fixed shape.
-Unlike the nice-and-neat physical interaction between rigid solid objects, fluid matter could morph themselves in space to embrace the submerged objects, making the interaction could hardly be modeled with a limited number of point-to-point pairs of forces;
-instead, 
+Unlike the nice-and-neat physical interaction between rigid solid objects, the interaction between fluid matter and solid objects could hardly be modeled with a limited number of point-to-point pairs of forces;
+instead, fluid matter could morph in space to embrace the submerged objects and cause a net pressuring force on them from many directions.
 
 \begin{figure}[h]
 	\begin{center}
@@ -32,8 +32,8 @@ then the whole face of the plank will splat itself onto the water surface;
 in the last, the plank's momentum is sufficiently decreased and it will slowly sink into or hold still on the water.
 To simulate this whole process in a computer, there are two difficulties to be dealt with:
 
-\begin{itemize}
-	\item First, it is not easy to find the exact volume of the submerged part of a solid object.
+\begin{enumerate}
+	\item It is not easy to find the exact volume of the submerged part of a solid object.
 
 		To get the accurate buoyancy force, one would have to find which parts exactly are sunk in the water and keep making queries to the geometrical shape of the solid object.
 		Unfortunately, common game engines only provides very limited interfaces on geometry information of physical bodies.
@@ -41,13 +41,13 @@ To simulate this whole process in a computer, there are two difficulties to be d
 		This would be a linear performance cost relating to the amount of triangle surfaces of the floating object.
 		The more complex the object's geometry is, the longer the algorithm needs to run.
 
-	\item Secondly, it could be overly computationally expensive or sometimes impossible.
+	\item It could be overly computationally expensive or sometimes impossible.
 
 		Finding only the accurate geometry information isn't enough, as every surfaces could be partially sunk in the water.
 		If the algorithm only uses the full area of the surfaces to calculate the buoyancy force, then soon as an object touches the water, it would receive the maximum buoyancy force, which leads to artifacts.
 		To avoid this, all surfaces of the mesh must clipped in each time the algoritm runs.
 		Not only this would cause more performance cost, it also requires a clear, definite boundary of the water surface to be queried during runtime.
 		As the implementation of the water body varies, this might even be impossible to achieve.
-\end{itemize}
+\end{enumerate}
 
 However, although it is difficult to calculate the exact solutions directly, it is possible to use the Monte-Carlo method to statistically solve the problem at a cost of a configurable amount of error due to the randomness introduced by the method.
