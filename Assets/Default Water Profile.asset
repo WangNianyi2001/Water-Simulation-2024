@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Default Water Profile
   m_EditorClassIdentifier: 
   density: 1.33
-  form: 0.1
-  viscosity: 0.1
-  dissipation: 1
+  form: 0.5
+  viscosity: 0.5
+  dissipation: 0.5
