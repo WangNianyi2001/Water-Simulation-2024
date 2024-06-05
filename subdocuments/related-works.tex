@@ -1,31 +1,40 @@
 \section{Related Works}
-Before the year of 2000, principles and methods of realtime water simulation did have been proposed by researchers\cite{CHE97}, but only theoretically.
-Although many of the researches are labelled as ``realtime'' or ``interactive'', due to the limitation of the hardware performance of the time, these researches could only be used to simulate fluid bodies in a small volume of a virtual space.
 
-Only in the later half of the 2000 decade, researches on true interactive fluid simulation started appearing.
-An earliest example could be a study in 2008\cite{JUD08}, where an algorithm of simulating the motion of large water bodies on a open terrain is proposed.
-However, researches of this period are still not suitable for our problem:
-Either that they only cares the water's behavior on a large, terrain-level scale;
-or that they are too focused on simulating the detailed local behavior of the water body.
-With these methods, we cannot smoothly transition the local and large-scale water behavior without costing extra performance.
+The study on the physical interaction between solid objects and its surrounding environment could be traced back to an very early stage of Computer Graphics.
+Due to the natural complexity of the target, researches has never set their goals on creating a factual realistic result, but only a visual realism.
+In the most common practices, solid objects were often modelled as rigid bodies as in \cite{BAR01}; when computing the physical effects, the whole body could be simplified into a single point at its center of mass.
+This simplification would cause problems when it comes to buoyancy simulation, as the real geometry of the solid object must be taken into account.
+To reach a more realistic result, two styles of approaches have been studied primarily \cite{GOU09}.
 
-In 2020, an algorithm for simulating sinking solids was proposed\cite{RBM20}.
-It can simulate the buoyancing behavior in realtime, however though, there are some limitations of their methods:
-\begin{enumerate}
-	\item It uses baked proxy volumes to store and calculate ``how waterlogged'' each section of a solid object are.
+\subsection{The Lagrangian Approach}
 
-		Using a proxy mesh could cause potential problems.
-		For example, the visual appearance of the object could change in runtime.
-		If the proxy mesh doesn't change along, artifacts may be induced;
-		but if the developer does remember to synchronize them, then baking would be performed in runtime, which leads to performance issue.
-		Also, this proxy-based calculation is itself a simplification of the underlying physical effect.
-		It may be able to produce an okay result for normal meshes, but on overly-simple or too-complex meshes, it might look off.
+The Lagrangian approach models the fluid environment into small particles and calculates each of their force contributions on the target solid objects.
 
-	\item It modifies the velocities of the solid objects' directly.
+A study in 2004 \cite{CAR04} gives an example of Lagrangian approach on fluid-solid coupling simulation.
+This approach requires a Lagrangian fluid solver to be present in order to simulate the motion of the fluid itself.
+Because solid objects are considered as fluid particles during the solver's working phase, this approach could be suffering from performance issues when the submerged solid objects' geometries frequently change or contain huge amounts of triangles.
+Also, it would require the solver to run at a high resolution when the simulation environment is complex, or the simulation might be inaccurate and thus unrealistic.
 
-		Modifying physical properties directly is usually avoided in physical simulations, as there might be many other effects that are happening at the same time.
-		If one of them directly modifies the target property, it is practically messing with all the other effects by ignoring and overwriting their contributions.
-		Normally, developers would like algorithms to add their physical contributions onto the bodies.
+Another study in 2012 \cite{AKI12} takes a step even further to model not only the fluid matter into small particles, but also the submerged solid bodies' surfaces.
+This study could achieve very realistic results, but nowhere meets the demand of interactive simulation.
 
-\end{enumerate}
-Other methods, as discussed in the above article, are either not suitable for interactive applications or not physically accurate.
+Due to the heavy computation it requires, the Lagrangian approach is seldomly used in interactive scenarios.
+
+\subsection{The Eulerian Approach}
+
+The Eulerian approach focuses on the physical field created by the existence and motion of the fluid matter.
+Their effects on submerged bodies could be thought of the net value on the bodies' surfaces under integration.
+Because the Eulerian approach treats the fluid matter as a whole, the heavy computation could be parallelized and performed by GPU, thus it has a great advantage in performance than the Lagrangian approach.
+
+In 2013, an optimized model of a panel-based Eulerian fluid-solid coupling is proposed \cite{GER13}.
+The model takes the entire fluid volume as the induced field of a limited amount of ``panels'' -- essentially generating seeds at certain location that represent the surrounding fluid motion in their adjacent spaces.
+This model is cheap enough to run at a realtime scale in a 2D game, but sacrifices the accuracy be reducing the freedom of the fluid's behavior.
+
+A study in 2020 \cite{BAJ20} matches our topic the best:
+They have proposed a model to simulate the sinking phases of buoyant objects.
+Similar to \cite{GER13}, their method uses a seed-based simplification to reduce the heavy computational cost; but the simplification is applied on the solid objects instead of the fluid body.
+Their method could result in good visual realism over targets of different sizes, but requires the solid objects to be pre-configured with a seed graph.
+If the solid object's geometry changes at runtime, the graph would then be reflecting an incorrect physical proxy, leading to artifacts.
+
+Continuing on previous ideas, our model adapts an Eulerian approach that saves performance by reducing the computation on the net force.
+This reduction is achieved by estimating over random samples over the surface of the submerged solid bodies' geometries.
