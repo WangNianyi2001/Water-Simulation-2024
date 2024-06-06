@@ -1,12 +1,4 @@
-\section{Conclusion and Discussion}
-
-Starting from digging into Archimede's law, we managed to build a realistic model of the buoyancy force on solid bodies submerged in fluid.
-To overcome the difficulties on discretization, we then apply the Monte-Carlo method on the model.
-By doing so, the model yields into a practical algorithm that can freely balance between quiality and performance.
-To make it more realistic, we introduced the resistance terms into the model.
-After generalizing, the model can even support introducing custom physical contributions.
-In the last, we put the model on a run and verified its feasibility.
-The result shows that the model is successful.
+\section{Discussion and Further Work}
 
 \paragraph{Generalization}
 
@@ -20,17 +12,31 @@ One should be able to easily substitute the $\mathbf{f}_{\text{pressure}}$ term 
 Our model only provides a solution to one half of fluid-solid coupling -- how solid objects move in fluid.
 It is unable to use our model to simulate the backward effect that the solid object causes to the fluid.
 
-\paragraph{Further Work}
+Our model runs on CPU and would thus suffer performance cost when there are many objects to simulate.
+One could try to optimize the performance in the following directions:
+\begin{itemize}
+	\item Finding a way to parallelize the computation.
+	\item Optimize the computation for fully-submerged bodies.
+\end{itemize}
 
-Under a low sample rate, the model might result in unstablility.
+When running under a low sample rate, the model could result in unstablility.
 The random nature of the model would unevitably introduce noise into the physical outcome, leading to a Brownian-like vibrating behavior.
 This could appear artifactual, especially when the submerged body is close to the stable state.
 
-To avoid artifacts, one way is to increase the sample rate,
-but it would increase the cost on performance;
+To avoid artifacts, one way is to increase the sample rate, but it would increase the cost on performance;
 another way is to use stabilizing or filtering algorithms.
 Doing so might introduce delay in the physical response;
 but depends on the actual application, the downstream developers shall be able to choose the best choice on their own.
+
+\section{Conclusion}
+
+Starting from digging into Archimede's law, we managed to build a realistic model of the buoyancy force on solid bodies submerged in fluid.
+To overcome the difficulties on discretization, we then apply the Monte-Carlo method on the model.
+By doing so, the model yields into a practical algorithm that can freely balance between quiality and performance.
+To make it more realistic, we introduced the resistance terms into the model.
+After generalizing, the model can even support from introducing custom physical contributions to simulating other kinds of field interaction.
+In the last, we put the model on a run and verified its feasibility.
+The result shows that the model is capable for simulating the buoyancy force on submerged bodies in an interactive application at realtime.
 
 \section*{Postscripts and Acknowledgements}
 
