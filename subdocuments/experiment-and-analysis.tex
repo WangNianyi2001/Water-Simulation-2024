@@ -22,7 +22,7 @@ The water block is wide and deep enough so that the plank would never touch the 
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.4\textwidth]{figures/experiment-environment.jpg}
+	\includegraphics[height=1.5in]{figures/experiment-environment.jpg}
 	\caption{The simulation environment.}
 	\label{simulation-environment}
 \end{figure}
@@ -54,49 +54,50 @@ The simulation will stop at an appropriate time after a relatively stable state 
 
 \paragraph*{Result}
 
-Figure \ref{simulation-result-heights} shows the position of the plank relative to the water surface during the fall.
-The olive-colored line shows the position of the plank's center-of-mass, while the blue line shows the height of the lowest point on the plank.
-Figure \ref{simulation-result-rot} shows the pitch angle of the plank during the fall.
+Figure \ref{simulation-result-heights} shows the position and the rotation of the plank relative to the water surface during the fall.
+The olive-colored line shows the position of the plank's center-of-mass, the blue line shows the height of the lowest point on the plank, and the red line shows the pitch of the plank's biggest surface -- when pointing to the sky it should be 90$^\circ$.
 
-\begin{figure}[htb]
+\begin{figure}[h]
 	\centering
 	\begin{subcaptionblock}{0.48\textwidth}
 		\centering
 		\scalebox{0.65}{
 			\begin{tikzpicture}
 				\begin{axis}[
-					width=5in, height=3in,
+					width=5in, height=2in,
 					enlargelimits=false,
 					xlabel={time (seconds)},
-					ylabel={height (meter)},
+					ylabel={meter},
 					ymin=-2, ymax=5, ytick={-2,-1,...,5},
 				]
 					\addplot[black] coordinates { (0,0) (5,0) };
 					\addplot[olive] table[x=t, y=com] {figures/simulation-record.dat};
 					\addplot[blue] table[x=t, y=min] {figures/simulation-record.dat};
 				\end{axis}
-				\matrix [draw, below left, fill=white] at (4.25in, 2.25in) {
+				\begin{axis}[
+					width=5in, height=2in,
+					enlargelimits=false,
+					ylabel={degree},
+					ymin=0, ymax=90, ytick={0,15,...,90},
+					axis y line*=right,
+					ylabel near ticks, yticklabel pos=right,
+				]
+					\addplot[color=red] table[x=t, y=rx] {figures/simulation-record.dat};
+				\end{axis}
+				\matrix [draw, below left, fill=white] at (4.25in, 1.25in) {
 					\node[olive, font=\footnotesize] {center-of-mass}; \\
 					\node[blue, font=\footnotesize] {lowest point}; \\
+					\node[red, font=\footnotesize] {pitch}; \\
 				};
 			\end{tikzpicture}
 		}
-		\caption{The position of the plank during the fall.}
+		\caption{The position and rotation of the plank during the fall.}
 		\label{simulation-result-heights}
 	\end{subcaptionblock}
 	\begin{subcaptionblock}{0.48\textwidth}
 		\centering
 		\scalebox{0.65}{
 			\begin{tikzpicture}
-				\begin{axis}[
-					width=5in, height=3in,
-					enlargelimits=false,
-					xlabel={time (seconds)},
-					ylabel={pitch (degree)},
-					ymin=0, ymax=90, ytick={0,15,...,90},
-				]
-					\addplot[color=red] table[x=t, y=rx] {figures/simulation-record.dat};
-				\end{axis}
 			\end{tikzpicture}
 		}
 		\caption{The rotation of the plank during the fall.}
@@ -114,20 +115,20 @@ also, the plank's flat face is aligned to the water surface (red line approaches
 Figure \ref{experiment-no-resistance} shows a clip of the simulation result when the resistance terms are omitted by setting the drag and  dissipation coefficients to zero.
 It can be seen from the olive line that the plank will indeed oscilate forever whilst keeping its kinematic energy.
 
-\begin{figure*}[htb]
+\begin{figure*}[h]
 	\centering
 	\begin{tikzpicture}
 		\begin{axis}[
-			width=6in, height=2in,
+			width=6in, height=1.5in,
 			enlargelimits=false,
 			xlabel={time (seconds)},
-			ymin=-5, ymax=5, ytick={-5,-4,...,5},
+			ymin=-5, ymax=5, ytick={-5,0,...,5},
 		]
 			\addplot[black] coordinates { (0,0) (10,0) };
 			\addplot[olive] table[x=t, y=com] {figures/no-resistance.dat};
 			\addplot[blue] table[x=t, y=min] {figures/no-resistance.dat};
 		\end{axis}
-		\matrix [draw, below left, fill=white] at (5.25in, 1.25in) {
+		\matrix [draw, above left, fill=white] at (5.25in, 0.05in) {
 			\node[olive, font=\footnotesize] {center-of-mass}; \\
 			\node[blue, font=\footnotesize] {lowest point}; \\
 		};
@@ -149,7 +150,7 @@ An automatic object spawner is placed above the water surface, which will spawn 
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[height=2in]{figures/spawner-setup.jpg}
+	\includegraphics[height=1.5in]{figures/spawner-setup.jpg}
 	\caption{A screenshot of the working object spawner.}
 	\label{spawner-setup}
 \end{figure}
@@ -164,13 +165,13 @@ Also, we would provide another set of FPS record of the same environment but wit
 
 Figure \ref{experiment-spawner} shows the change of FPS as more and more planks are spawned and dropped into the water body.
 
-\begin{figure*}[htb]
+\begin{figure*}[h]
 	\centering
 	\fbox{
 		\scalebox{0.75}{
 			\begin{tikzpicture}
 				\begin{axis}[
-					width=6in, height=3in,
+					width=6in, height=2in,
 					enlargelimits=false,
 					xlabel={time (seconds)},
 					xmin=0, xmax=5,
@@ -182,7 +183,7 @@ Figure \ref{experiment-spawner} shows the change of FPS as more and more planks 
 					\addplot[gray] table[x=t, y=fps] {figures/spawner-compare.dat};
 				\end{axis}
 				\begin{axis}[
-					width=6in, height=3in,
+					width=6in, height=2in,
 					enlargelimits=false,
 					xmin=0, xmax=5,
 					ymin=0, ymax=50,
@@ -192,7 +193,7 @@ Figure \ref{experiment-spawner} shows the change of FPS as more and more planks 
 				]
 					\addplot[red] table[x=t, y=n] {figures/spawner-real.dat};
 				\end{axis}
-				\matrix [draw, below right, fill=white] at (0.25in, 2.25in) {
+				\matrix [draw, above left, fill=white] at (5.25in, 0.05in) {
 					\node[blue, font=\footnotesize] {control}; \\
 					\node[gray, font=\footnotesize] {comparison}; \\
 				};
