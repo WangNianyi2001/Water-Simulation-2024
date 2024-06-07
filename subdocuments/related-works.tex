@@ -4,18 +4,18 @@ The study on the physical interaction between solid objects and its surrounding 
 Due to the natural complexity of the target, researches has never set their goals on creating a factual realistic result, but only a visual realism.
 In the most common practices, solid objects were often modelled as rigid bodies as in \cite{BAR01}; when computing the physical effects, the whole body could be simplified into a single point at its center of mass.
 This simplification would cause problems when it comes to buoyancy simulation, as the real geometry of the solid object must be taken into account.
-To reach a more realistic result, two styles of approaches have been studied primarily \cite{GOU09}.
+To reach a more realistic result, two styles of approaches have been studied primarily (\cite{GOU09}).
 
 \subsection{The Lagrangian Approach}
 
 The Lagrangian approach models the fluid environment into small particles and calculates each of their force contributions on the target solid objects.
 
-A study in 2004 \cite{CAR04} gives an example of Lagrangian approach on fluid-solid coupling simulation.
+\cite{CAR04} gives an example of Lagrangian approach on fluid-solid coupling simulation.
 This approach requires a Lagrangian fluid solver to be present in order to simulate the motion of the fluid itself.
 Because solid objects are considered as fluid particles during the solver's working phase, this approach could be suffering from performance issues when the submerged solid objects' geometries frequently change or contain huge amounts of triangles.
 Also, it would require the solver to run at a high resolution when the simulation environment is complex, or the simulation might be inaccurate and thus unrealistic.
 
-Another study in 2012 \cite{AKI12} takes a step even further to model not only the fluid matter into small particles, but also the submerged solid bodies' surfaces.
+\cite{AKI12} takes a step even further to model not only the fluid matter into small particles, but also the submerged solid bodies' surfaces.
 This study could achieve very realistic results, but nowhere meets the demand of interactive simulation.
 
 Due to the heavy computation it requires, the Lagrangian approach is seldomly used in interactive scenarios.
@@ -26,11 +26,11 @@ The Eulerian approach focuses on the physical field created by the existence and
 Their effects on submerged bodies could be thought of the net value on the bodies' surfaces under integration.
 Because the Eulerian approach treats the fluid matter as a whole, the heavy computation could be parallelized and performed by GPU, thus it has a great advantage in performance than the Lagrangian approach.
 
-In 2013, an optimized model of a panel-based Eulerian fluid-solid coupling is proposed \cite{GER13}.
+\cite{GER13} proposed an optimized model of a panel-based Eulerian fluid-solid coupling.
 The model takes the entire fluid volume as the induced field of a limited amount of ``panels'' -- essentially generating seeds at certain location that represent the surrounding fluid motion in their adjacent spaces.
-This model is cheap enough to run at a realtime scale in a 2D game, but sacrifices the accuracy be reducing the freedom of the fluid's behavior.
+This model is cheap enough to run at a real-time scale in a 2D game, but sacrifices the accuracy be reducing the freedom of the fluid's behavior.
 
-A study in 2020 \cite{BAJ20} matches our topic the best:
+\cite{BAJ20} matches our topic the best:
 They have proposed a model to simulate the sinking phases of buoyant objects.
 Similar to \cite{GER13}, their method uses a seed-based simplification to reduce the heavy computational cost; but the simplification is applied on the solid objects instead of the fluid body.
 Their method could result in good visual realism over targets of different sizes, but requires the solid objects to be pre-configured with a seed graph.
