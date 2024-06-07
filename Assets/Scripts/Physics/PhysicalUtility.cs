@@ -60,9 +60,22 @@ namespace Nianyi.UnityPlayground {
 						var vp = mesh.vertices;
 						var vi = mesh.triangles;
 						int triangleCount = vi.Length / 3;
-						for(int si = 0; si < count; ++si) {
-							int i = Random.Range(0, triangleCount) * 3;
-							yield return SampleTriangle(vp[vi[i]], vp[vi[i + 1]], vp[vi[i + 2]]);
+						for(int i = 0; i < count; ++i) {
+							int ti = Random.Range(0, triangleCount) * 3;
+							yield return SampleTriangle(vp[vi[ti]], vp[vi[ti + 1]], vp[vi[ti + 2]]);
+						}
+						break;
+					}
+				case SphereCollider sphereCollider: {
+						for(int i = 0; i < count; ++i) {
+							var transform = sphereCollider.transform;
+							var direction = Random.insideUnitSphere.normalized;
+							SurfaceSample sample = new() {
+								position = transform.position + direction * (sphereCollider.radius * transform.lossyScale.magnitude / Mathf.Sqrt(3)),
+								area = 1,
+								normal = direction,
+							};
+							yield return sample;
 						}
 						break;
 					}
