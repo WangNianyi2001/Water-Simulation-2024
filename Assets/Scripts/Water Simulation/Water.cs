@@ -54,7 +54,7 @@ namespace Nianyi.UnityPlayground.WaterSimulation {
 				if(info.body.isKinematic)
 					continue;
 
-				var samples = PhysicsUtility.SampleSurface(info.colliders, Mathf.CeilToInt(sampleDensity * info.surfaceArea)).ToArray();
+				var samples = PhysicsUtility.SampleSurface(info.colliders, Mathf.CeilToInt(sampleDensity)).ToArray();
 
 				UnifiedPhysicalEffect.Combine(new PhysicalEffect[] {
 					CalculateBuoyancy(info, samples),
