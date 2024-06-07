@@ -22,7 +22,7 @@ The water block is wide and deep enough so that the plank would never touch the 
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[height=2.5in]{figures/experiment-environment.jpg}
+	\includegraphics[width=0.4\textwidth]{figures/experiment-environment.jpg}
 	\caption{The simulation environment.}
 	\label{simulation-environment}
 \end{figure}
@@ -33,7 +33,7 @@ The properties of the water is given in table \ref{simulation-water-properties}.
 	\centering
 	\begin{tabular}{ c c c c }
 		\hline
-		$\rho$ {\footnotesize(density)} & $c_f$ {\footnotesize(form drag coef.)} & $c_v$ {\footnotesize(visc. drag coef.)} & {\small dissipation coef.} \\
+		$\rho$ {\footnotesize(density)} & $c_f$ {\footnotesize(form coef.)} & $c_v$ {\footnotesize(visc. coef.)} & {\small dissipation coef.} \\
 		\hline
 		1.33 & 0.1 & 0.1 & 1.0 \\
 		\hline
@@ -62,45 +62,42 @@ Figure \ref{simulation-result-rot} shows the pitch angle of the plank during the
 	\centering
 	\begin{subcaptionblock}{0.48\textwidth}
 		\centering
-		\fbox{
-			\scalebox{0.65}{
-				\begin{tikzpicture}
-					\begin{axis}[
-						width=5in, height=3in,
-						enlargelimits=false,
-						xlabel={time (seconds)},
-						ymin=-2, ymax=5, ytick={-2,-1,...,5},
-					]
-						\addplot[black] coordinates { (0,0) (5,0) };
-						\addplot[olive] table[x=t, y=com] {figures/simulation-record.dat};
-						\addplot[blue] table[x=t, y=min] {figures/simulation-record.dat};
-					\end{axis}
-					\matrix [draw, below left, fill=white] at (4.25in, 2.25in) {
-						\node[olive, font=\footnotesize] {center-of-mass}; \\
-						\node[blue, font=\footnotesize] {lowest point}; \\
-					};
-				\end{tikzpicture}
-			}
+		\scalebox{0.65}{
+			\begin{tikzpicture}
+				\begin{axis}[
+					width=5in, height=3in,
+					enlargelimits=false,
+					xlabel={time (seconds)},
+					ylabel={height (meter)},
+					ymin=-2, ymax=5, ytick={-2,-1,...,5},
+				]
+					\addplot[black] coordinates { (0,0) (5,0) };
+					\addplot[olive] table[x=t, y=com] {figures/simulation-record.dat};
+					\addplot[blue] table[x=t, y=min] {figures/simulation-record.dat};
+				\end{axis}
+				\matrix [draw, below left, fill=white] at (4.25in, 2.25in) {
+					\node[olive, font=\footnotesize] {center-of-mass}; \\
+					\node[blue, font=\footnotesize] {lowest point}; \\
+				};
+			\end{tikzpicture}
 		}
 		\caption{The position of the plank during the fall.}
 		\label{simulation-result-heights}
 	\end{subcaptionblock}
 	\begin{subcaptionblock}{0.48\textwidth}
 		\centering
-		\fbox{
-			\scalebox{0.65}{
-				\begin{tikzpicture}
-					\begin{axis}[
-						width=5in, height=3in,
-						enlargelimits=false,
-						xlabel={time (seconds)},
-						ylabel={pitch (degree)},
-						ymin=0, ymax=90, ytick={0,15,...,90},
-					]
-						\addplot[color=red] table[x=t, y=rx] {figures/simulation-record.dat};
-					\end{axis}
-				\end{tikzpicture}
-			}
+		\scalebox{0.65}{
+			\begin{tikzpicture}
+				\begin{axis}[
+					width=5in, height=3in,
+					enlargelimits=false,
+					xlabel={time (seconds)},
+					ylabel={pitch (degree)},
+					ymin=0, ymax=90, ytick={0,15,...,90},
+				]
+					\addplot[color=red] table[x=t, y=rx] {figures/simulation-record.dat};
+				\end{axis}
+			\end{tikzpicture}
 		}
 		\caption{The rotation of the plank during the fall.}
 		\label{simulation-result-rot}
@@ -117,31 +114,27 @@ also, the plank's flat face is aligned to the water surface (red line approaches
 Figure \ref{experiment-no-resistance} shows a clip of the simulation result when the resistance terms are omitted by setting the drag and  dissipation coefficients to zero.
 It can be seen from the olive line that the plank will indeed oscilate forever whilst keeping its kinematic energy.
 
-\begin{figure}[htb]
+\begin{figure*}[htb]
 	\centering
-	\fbox{
-		\scalebox{1}{
-			\begin{tikzpicture}
-				\begin{axis}[
-					width=6in, height=2in,
-					enlargelimits=false,
-					xlabel={time (seconds)},
-					ymin=-5, ymax=5, ytick={-5,-4,...,5},
-				]
-					\addplot[black] coordinates { (0,0) (10,0) };
-					\addplot[olive] table[x=t, y=com] {figures/no-resistance.dat};
-					\addplot[blue] table[x=t, y=min] {figures/no-resistance.dat};
-				\end{axis}
-				\matrix [draw, below left, fill=white] at (5.25in, 1.25in) {
-					\node[olive, font=\footnotesize] {center-of-mass}; \\
-					\node[blue, font=\footnotesize] {lowest point}; \\
-				};
-			\end{tikzpicture}
-		}
-	}
+	\begin{tikzpicture}
+		\begin{axis}[
+			width=6in, height=2in,
+			enlargelimits=false,
+			xlabel={time (seconds)},
+			ymin=-5, ymax=5, ytick={-5,-4,...,5},
+		]
+			\addplot[black] coordinates { (0,0) (10,0) };
+			\addplot[olive] table[x=t, y=com] {figures/no-resistance.dat};
+			\addplot[blue] table[x=t, y=min] {figures/no-resistance.dat};
+		\end{axis}
+		\matrix [draw, below left, fill=white] at (5.25in, 1.25in) {
+			\node[olive, font=\footnotesize] {center-of-mass}; \\
+			\node[blue, font=\footnotesize] {lowest point}; \\
+		};
+	\end{tikzpicture}
 	\caption{The resistance-free simulation data captured from experiment (a).}.
 	\label{experiment-no-resistance}
-\end{figure}
+\end{figure*}
 
 Based on the analysis of the result, we can say that our model has met the desired experiment result and is indeed succesful.
 
@@ -171,7 +164,7 @@ Also, we would provide another set of FPS record of the same environment but wit
 
 Figure \ref{experiment-spawner} shows the change of FPS as more and more planks are spawned and dropped into the water body.
 
-\begin{figure}[htb]
+\begin{figure*}[htb]
 	\centering
 	\fbox{
 		\scalebox{0.75}{
@@ -208,7 +201,7 @@ Figure \ref{experiment-spawner} shows the change of FPS as more and more planks 
 	}
 	\caption{The performance data collected from experiment (b).}.
 	\label{experiment-spawner}
-\end{figure}
+\end{figure*}
 
 From the result we can see that our method would cause a linear cost on the performance as the number of submerged objects increases.
 At around the time when the amount of objects exceeds 30, it would drag the performance down for about 50\% under the current environment.
