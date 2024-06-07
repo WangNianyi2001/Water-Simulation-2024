@@ -13,7 +13,7 @@ There are two aspects with which we can judge whether the model is succesful or 
 	\item If the resistance terms are omitted, will the plank oscillate forever whilst the kinetic energy is conserved?
 \end{enumerate}
 
-\paragraph{Environment Setup}
+\paragraph*{Environment Setup}
 
 In an empty scene, a block of static water is placed amid air.
 A piece of plank is put above the water surface for a couple of meter's height (figure \ref{simulation-environment}).
@@ -44,7 +44,7 @@ The properties of the water is given in table \ref{simulation-water-properties}.
 
 The sampling rate is set at 200 samples per physical frame.
 
-\paragraph{The Process}
+\paragraph*{The Process}
 
 At the beginning of the simulation, the plank is let go free-falling into the water.
 
@@ -52,7 +52,7 @@ During the whole process of the simulation, the critical physical properties of 
 
 The simulation will stop at an appropriate time after a relatively stable state is reached.
 
-\paragraph{Result}
+\paragraph*{Result}
 
 Figure \ref{simulation-result-heights} shows the position of the plank relative to the water surface during the fall.
 The olive-colored line shows the position of the plank's center-of-mass, while the blue line shows the height of the lowest point on the plank.
@@ -149,7 +149,7 @@ Based on the analysis of the result, we can say that our model has met the desir
 
 The performance of our method could be tested by keep spawning new buoyant objects and tracking the FPS.
 
-\paragraph{Environment Setup}
+\paragraph*{Environment Setup}
 
 The water body remains the same as in the above experiment, except that the sample rate is decrease to 20 samples per physical frame.
 An automatic object spawner is placed above the water surface, which will spawn new planks constantly at a custom rate (figure \ref{spawner-setup}).
@@ -161,13 +161,13 @@ An automatic object spawner is placed above the water surface, which will spawn 
 	\label{spawner-setup}
 \end{figure}
 
-\paragraph{The Process}
+\paragraph*{The Process}
 
 Soon as the game starts, the object spawner would start working and dropping planks into the water.
 The number of spawned planks, the time since start and the FPS corresponding to the time would be recorded in real-time.
 Also, we would provide another set of FPS record of the same environment but without the presence of the water body as the comparison in order to clearly see the performance cost caused by our method instead of other environmental factors.
 
-\paragraph{Result}
+\paragraph*{Result}
 
 Figure \ref{experiment-spawner} shows the change of FPS as more and more planks are spawned and dropped into the water body.
 

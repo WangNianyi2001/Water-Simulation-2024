@@ -8,14 +8,14 @@ After generalizing, the model can even support from introducing custom physical 
 In the last, we put the model on a run and verified its feasibility.
 The result shows that the model is capable for simulating the buoyancy force on submerged bodies in an interactive application at real-time.
 
-\paragraph{Generalization}
+\paragraph*{Generalization}
 
 Although our model is proposed mainly based on the assumption of a static water body,
 the key formula (\ref{net-water-force}) is, however, completely irrelevant to this assumption.
 It is fundamentally a Monte-Carlo method to simulate the effect of any fleid on a rigidbody.
 One should be able to easily substitute the $\mathbf{f}_{\text{pressure}}$ term with their own version to make it compatible with a more complex implementation of the water body, for example, a particle or height field based water system; or substitute the entire $\mathbf{f}_{\text{all}}$ term to simulate other kinds of fields like a wind blow or magnetic field.
 
-\paragraph{Limitations}
+\paragraph*{Limitations}
 
 Our model only provides a solution to one half of fluid-solid coupling -- how solid objects move in fluid.
 It is unable to use our model to simulate the backward effect that the solid object causes to the fluid.

@@ -1,7 +1,7 @@
 \section{Applying the Monte-Carlo Method}
 
-By using the \emph{Monte-Carlo method}, the above two problems could be resolved.
-It is a methodology of using a set of local information on random samples to estimate the accurate value, at a cost of certain amount of noise.
+By using the \emph{Monte-Carlo method}, the above two problems could be resolved \cite{kroese2014monte}.
+It is a methodology of using a set of local information on random samples to estimate the accurate value, at a cost of certain amount of noise \cite{james1980monte}.
 In the case of buoyancy, the force only affects the float object's acceleration directly, which is the second-order derivative of its location;
 as the time passes, the noises generated from the randomness could accumulate and statically cancel themselves out.
 Therefore, we can use a small set of water pressuring force calculated over random points on the floating body's surface to estimate the net buoyancy force without introducing too much error.
@@ -16,7 +16,9 @@ To apply the Monte-Carlo method, there are the following steps:
 
 \subsection{Sampling Over the Surface}
 
-As already introduced previously, most game engines have poor interfaces for querying the geometry information of models, so they cannot be relied on. Sampling in the UV space might work, but there are some problems:
+Sampling on the mesh of a 3D model is not easy to do well \cite{ebeida2012uniform}.
+As already introduced previously, most game engines have poor interfaces for querying the geometry information of models, so they cannot be relied on.
+One might be thinking of sampling directly in the UV space, but there are some problems:
 \begin{itemize}
 	\item
 		The area that a triangular face occupies in the UV space doesn't reflect its real area in the world space (or at least in its local space).
@@ -39,8 +41,9 @@ This is not desired, as a bigger face would receive bigger pressuring force in w
 but under the same probability, they would have the same contribution to the net pressuring force.
 To solve this, an approach of weighted average could be applied.
 \begin{itemize}
-	\item We grant each sample point a weight that equals to the area of the triangluar face it lands on, so that the samples on bigger faces would make bigger contribution of force;
-	\item And after all contributions are summed up, the weight sum would be divided from the totaol contribution.
+	\item We grant each sample point a weight that equals to the area of the triangluar face it lands on, similar to the Jacobian determinant when changing an integral variable \cite{waldron1985study};
+	so that the samples on bigger faces would make bigger contribution of force;
+	\item And after all contributions are summed up, the weight sum would be divided from the totol contribution.
 \end{itemize}
 
 An important trait of a Monte-Carlo approach is that the balance between quality and performance can be adjusted.
@@ -83,7 +86,7 @@ Lastly, to sum them all up and get the regularized result:
 Where the $\text{arm}(s)$ is the position displacement from the sample point to the center of the body's mass.
 
 Notice that here to add the forces together along with their positions, the $\bigoplus$ symbol is used instead of $\sum$, which is kind of a non-standard usage.
-This is because that forces applied on a physical body \emph{at specific locations} can not be simply added together.
+This is because that forces applied on a physical body \emph{at specific locations} can not be simply added together \cite{mirtich1996impulse}.
 
 \subsection{Composing the Forces Together}
 

@@ -6,7 +6,7 @@ Also, our method is discretized, meaning that there might be floating-point prec
 If not dealt with, these errors could potentially cause the physical system's energy to continuously accumulate and thus breaking the energy conservation law.
 Therefore, we would like this energy-losing mechanism to be added into our model by introducing some resistance components.
 
-The total resistance force of a solid object moving fluid, formally called \emph{parasitic drag}, is a combination of two separate sources of force:
+The total resistance force of a solid object moving fluid, formally called \emph{parasitic drag}, is a combination of two separate sources of force \cite{wadell1934coefficient}:
 \begin{itemize}
 	\item The form drag, or pressure drag, due to the size and shape of the object.
 	\item The skin friction drag, or viscous drag, due to the friction between the fluid and the surface of the object.
@@ -15,7 +15,7 @@ The total resistance force of a solid object moving fluid, formally called \emph
 \subsection{Form Drag}
 
 The form drag is caused by the surface of an object being pushed by the fluid blocking on its moving path.
-It is proportional to the square of the relative velocity between the moving object and the fluid.
+It is proportional to the square of the relative velocity between the moving object and the fluid \cite{flemmer1986drag}.
 The formula is given as (\ref{form-drag}); the letter $\mathbf{D}$ is used to represent a drag force.
 
 \begin{equation}
@@ -54,7 +54,7 @@ This can be checked by the dot product during the calculation of $A$: if the pro
 \subsection{Viscous Drag}
 
 The viscous drag is caused by the friction between the fluid and the object's surface as the surfaces passes along \emph{parallelly}.
-Similar to the form drag, the viscous drag is also proportional to the square of the flow velocity.
+Similar to the form drag, the viscous drag is also proportional to the square of the flow velocity \cite{trouton1906coefficient}.
 The rough formula of a net viscous drag is given as formula (\ref{viscous-drag}).
 \begin{equation}
 	\mathbf{D}_{\text{viscous}}=\int_{\partial V}\frac{1}{2}\,\rho\,\mathbf{v}^2\,c_v\,\text{d}A.
@@ -68,7 +68,7 @@ The formula is given as (\ref{sample-viscous-drag}).
 	\mathbf{d}_{\text{viscous}}=\frac{1}{2}\,\rho\,\mathbf{v}^2\,c_v\,|\text{area}|\,|\hat{\mathbf{v}}\times\mathbf{n}|.
 	\label{sample-viscous-drag}
 \end{equation}
-If the method needs to be applied on an Euclidean space at a dimension other than 3 where a cross product is not well-defined, one could substitude the cross product term by $\sqrt{1-(\hat{\mathbf{v}}\cdot\mathbf{n})^2}$.
+If the method needs to be applied on an Euclidean space at a dimension other than 3 where a cross product is not well-defined, one could substitude the cross product term by $\sqrt{1-(\hat{\mathbf{v}}\cdot\mathbf{n})^2}$ \cite{blinn2003lines}.
 
 \subsection{Integrating Into the Model}
 

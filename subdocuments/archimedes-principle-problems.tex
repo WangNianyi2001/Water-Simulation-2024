@@ -1,11 +1,11 @@
 \section{Problems With Archimede's Principle}
 
-Back to 246 BC, the ancient Greek philosopher Archimede has proposed his now-famous principle on buoyancy:
+Back to 246 BC, the ancient Greek philosopher Archimede has proposed his famous principle on buoyancy:
 \begin{quote}
 	Any object immersed in a fluid is subject to an upward buoyancy force equal to the weight of the fluid displaced by the object.
 \end{quote}
 This princle is correct in most of the cases;
-however, there are still some edge cases where it will fail.
+however, there are still some edge cases where it will fail \cite{bierman2003reconsidering} \cite{mohazzab2017archimedes}.
 Before showing the cases, we need to understand why the principle holds in the first place.
 
 The net buoyancy force can be seen as the unity of all the pressuring force from surrounding water applied on the floating object.
@@ -23,7 +23,7 @@ We can integrate this around the whole surface to get the net force (\ref{net-wa
 	\label{net-water-pressuring-force}
 \end{equation}
 If the object is fully sunk, we then have that the integrating surface would be the boundary of the object's volume ($S=\partial V$), which is guaranteed to be a 3D manifold.
-Under this assumption, using the \emph{divergence theorem} in multi-variable integration, formula \ref{net-water-pressuring-force} can be continued (\ref{archimedes-principle-formula}).
+Under this assumption, using the \emph{divergence theorem} in multi-variable integration, formula \ref{net-water-pressuring-force} can be continued (\ref{archimedes-principle-formula}) \cite{pfeffer1986divergence}.
 \begin{equation}
 	\mathbf{F}_P=\iiint_{V}\rho\mathrm{d}v=-\rho\mathbf{g}|V|.
 	\label{archimedes-principle-formula}
@@ -51,7 +51,7 @@ This means that if they are really touching the water, they should receive a non
 If we are still following formula (\ref{archimedes-principle-formula}), which is derived upon the divergence theorem, we will be incorrectly taking the wall-surfaces' fake pressure into the sum of the net force, thus leading to a wrong result.
 
 To deal with such case, we could explicitly calculate the original integral following formula (\ref{net-water-pressuring-force}) to get the correct result; but an immediate problem is that it would require us to actually integrate all the infinitesimals.
-This is imposible for computers to achieve, so we need to transform them into finite surface fragments (i.e. the \emph{Finite Element Method}).
+This is imposible for computers to achieve, so we need to transform them into finite surface fragments \cite{klosek1997integration}.
 
 All most common 3D model formats are based on polygons, so this can be done with no difficulties.
 The updated formula is given as (\ref{discretized-pressuring-force}).
