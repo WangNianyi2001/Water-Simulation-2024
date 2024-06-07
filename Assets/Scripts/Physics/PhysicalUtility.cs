@@ -8,7 +8,7 @@ namespace Nianyi.UnityPlayground {
 		public struct SurfaceSample {
 			public Vector3 position;
 			public Vector3 normal;
-			public float area;
+			public float weight;
 		}
 		public static IEnumerable<SurfaceSample> SampleSurface(this Collider collider, int count) {
 			switch(collider) {
@@ -47,7 +47,7 @@ namespace Nianyi.UnityPlayground {
 							SurfaceSample sample = new() {
 								position = position,
 								normal = t.MultiplyVector(localNorm).normalized,
-								area = area,
+								weight = area,
 							};
 							yield return sample;
 						}
@@ -58,6 +58,9 @@ namespace Nianyi.UnityPlayground {
 						if(mesh == null)
 							yield break;
 						var vp = mesh.vertices;
+						for(int i = 0; i < vp.Length; ++i) {
+							vp[i] = meshCollider.transform.localToWorldMatrix.MultiplyPoint(vp[i]);
+						}
 						var vi = mesh.triangles;
 						int triangleCount = vi.Length / 3;
 						for(int i = 0; i < count; ++i) {
@@ -72,7 +75,7 @@ namespace Nianyi.UnityPlayground {
 							var direction = Random.insideUnitSphere.normalized;
 							SurfaceSample sample = new() {
 								position = transform.position + direction * (sphereCollider.radius * transform.lossyScale.magnitude / Mathf.Sqrt(3)),
-								area = 1,
+								weight = 1,
 								normal = direction,
 							};
 							yield return sample;
@@ -133,15 +136,17 @@ namespace Nianyi.UnityPlayground {
 			// https://stackoverflow.com/a/68493226/15186859
 			float s = Random.value, t = Random.value;
 			bool inTriangle = s + t <= 1;
-			Vector3 position = inTriangle
+			Vector3 position = (
+				inTriangle
 				? s * i + t * j
-				: (1 - s) * i + (1 - t) * j;
+				: (1 - s) * i + (1 - t) * j
+			) + a;
 
 			Vector3 cross = Vector3.Cross(i, j);
 			return new() {
 				position = position,
 				normal = cross.normalized,
-				area = cross.magnitude * .5f,
+				weight = Mathf.Pow(cross.magnitude * .5f, 1),
 			};
 		}
 		#endregion

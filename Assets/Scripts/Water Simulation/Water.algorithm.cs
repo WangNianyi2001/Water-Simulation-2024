@@ -4,7 +4,6 @@ using System.Linq;
 
 namespace Nianyi.UnityPlayground.WaterSimulation {
 	public partial class Water : MonoBehaviour {
-		#region Functions
 		/// <returns>Depth to the surface, downward is negative.</returns>
 		protected float GetDepthAt(Vector3 position) {
 			return position.y - transform.position.y;
@@ -14,7 +13,7 @@ namespace Nianyi.UnityPlayground.WaterSimulation {
 				return default;
 
 			List<ForceAtPosition> forces = new();
-			float totalArea = samples.Aggregate(0f, (sum, sample) => sum + sample.area);
+			float totalWeight = samples.Aggregate(0f, (sum, sample) => sum + sample.weight);
 
 			float g = Physics.gravity.magnitude;
 			foreach(var sample in samples) {
@@ -22,10 +21,10 @@ namespace Nianyi.UnityPlayground.WaterSimulation {
 				if(depth > 0f)
 					continue;
 
-				totalArea += sample.area;
+				totalWeight += sample.weight;
 
 				ForceAtPosition force = new ForceAtPosition(info.body) {
-					force = sample.normal * (-1f * profile.density * g * -depth * sample.area),
+					force = sample.normal * (-1f * profile.density * g * -depth * sample.weight),
 					position = sample.position,
 				};
 				forces.Add(force);
@@ -33,7 +32,7 @@ namespace Nianyi.UnityPlayground.WaterSimulation {
 
 			var totalForce = UnifiedPhysicalEffect.Combine(forces);
 			totalForce.force = Vector3.Project(totalForce.force, Physics.gravity);
-			return totalForce.Scale(info.surfaceArea / totalArea);
+			return totalForce.Scale(info.surfaceArea / totalWeight);
 		}
 
 		protected UnifiedPhysicalEffect CalculateDrag(RigidbodyInfo info, IList<PhysicsUtility.SurfaceSample> samples) {
@@ -41,7 +40,7 @@ namespace Nianyi.UnityPlayground.WaterSimulation {
 					return default;
 
 				List<ForceAtPosition> forces = new();
-				float totalArea = samples.Aggregate(0f, (sum, sample) => sum + sample.area);
+				float totalArea = samples.Aggregate(0f, (sum, sample) => sum + sample.weight);
 
 				var centerOfMass = info.body.GetWorldCenterOfMass();
 				foreach(var sample in samples) {
@@ -59,7 +58,7 @@ namespace Nianyi.UnityPlayground.WaterSimulation {
 						continue;
 
 					var force = new ForceAtPosition(info.body) {
-						force = sample.normal * (-1f * dot * profile.form * sample.area),
+						force = sample.normal * (-1f * dot * profile.form * sample.weight),
 						position = sample.position,
 					};
 					forces.Add(force);
@@ -78,6 +77,5 @@ namespace Nianyi.UnityPlayground.WaterSimulation {
 				torque = info.body.angularVelocity * (-dissipationCoefficient),
 			};
 		}
-		#endregion
 	}
 }
