@@ -1,4 +1,12 @@
-\section{Discussion and Further Work}
+\section{Conlusion and Discussion}
+
+Starting from digging into Archimede's law, we managed to build a realistic model of the buoyancy force on solid bodies submerged in fluid.
+To overcome the difficulties on discretization, we then apply the Monte-Carlo method on the model.
+By doing so, the model yields into a practical algorithm that can freely balance between quiality and performance.
+To make it more realistic, we introduced the resistance terms into the model.
+After generalizing, the model can even support from introducing custom physical contributions to simulating other kinds of field interaction.
+In the last, we put the model on a run and verified its feasibility.
+The result shows that the model is capable for simulating the buoyancy force on submerged bodies in an interactive application at realtime.
 
 \paragraph{Generalization}
 
@@ -28,16 +36,7 @@ another way is to use stabilizing or filtering algorithms.
 Doing so might introduce delay in the physical response;
 but depends on the actual application, the downstream developers shall be able to choose the best choice on their own.
 
-\section{Conclusion}
-
-Starting from digging into Archimede's law, we managed to build a realistic model of the buoyancy force on solid bodies submerged in fluid.
-To overcome the difficulties on discretization, we then apply the Monte-Carlo method on the model.
-By doing so, the model yields into a practical algorithm that can freely balance between quiality and performance.
-To make it more realistic, we introduced the resistance terms into the model.
-After generalizing, the model can even support from introducing custom physical contributions to simulating other kinds of field interaction.
-In the last, we put the model on a run and verified its feasibility.
-The result shows that the model is capable for simulating the buoyancy force on submerged bodies in an interactive application at realtime.
-
+\begin{comment}
 \section*{Postscripts and Acknowledgements}
 
 This is the first time I have ever written a serious academical article.
@@ -52,6 +51,7 @@ They established the possibilty for this article to happen.
 Special thanks to 陈恩晖 (Omnisch) and 张嘉玥 (Limko).
 They are two really, really reliable co-workers and good friends of mine.
 They have given me the greatest mental and physical support on the project, and an unforgetful memory in my graduation year.
+\end{comment}
 
 \section*{Appendix}
 
