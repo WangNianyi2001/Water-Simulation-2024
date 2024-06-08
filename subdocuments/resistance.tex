@@ -1,9 +1,9 @@
 \section{Resistance Forces}
 
-In reality, objects moving through fluid would gradually lose their kinetic energy due to the resistance between its surface and the water body.
+In reality, objects moving through fluid would gradually lose their kinetic energy due to the resistance between their surface and the water body.
 If this mechanism is missing, then an object in water might oscillate forever and cannot tend to a still state, which is artifactual.
 Also, our method is discretized, meaning that there might be floating-point precision errors introduced within every calculation steps.
-If not dealt with, these errors could potentially cause the physical system's energy to continuously accumulate and thus breaking the energy conservation law.
+If not dealt with, these errors could potentially cause the physical system's energy to continuously accumulate and thus break the energy conservation law.
 Therefore, we would like this energy-losing mechanism to be added into our model by introducing some resistance components.
 
 The total resistance force of a solid object moving fluid, formally called \emph{parasitic drag}, is a combination of two separate sources of force \cite{wadell1934coefficient}:

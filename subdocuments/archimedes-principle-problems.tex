@@ -1,10 +1,10 @@
-\section{Problems With Archimede's Principle}
+\section{Problems With Archimedes Principle}
 
-Back to 246 BC, the ancient Greek philosopher Archimede has proposed his famous principle on buoyancy:
+Back to 246 BC, the ancient Greek philosopher Archimedes has proposed his famous principle on buoyancy:
 \begin{quote}
 	Any object immersed in a fluid is subject to an upward buoyancy force equal to the weight of the fluid displaced by the object.
 \end{quote}
-This princle is correct in most of the cases;
+This princple is correct in most of the cases;
 however, there are still some edge cases where it will fail \cite{bierman2003reconsidering} \cite{mohazzab2017archimedes}.
 Before showing the cases, we need to understand why the principle holds in the first place.
 
@@ -28,21 +28,21 @@ Under this assumption, using the \emph{divergence theorem} in multi-variable int
 	\mathbf{F}_P=\iiint_{V}\rho\mathrm{d}v=-\rho\mathbf{g}|V|.
 	\label{archimedes-principle-formula}
 \end{equation}
-This yields exactly the Archimede's principle.
+This yields exactly the Archimedes principle.
 
 Surprisingly, when the object is only partially sunk, this equation still holds;
 just that the $V$ now means only the sunk part of the geometry.
 The reason that it still holds is because after taking a cut of the geometry at the water surface, the water pressure on newly cut surface would be zero, since it is overlapping with the water surface.
 
-Together, the two cases make up the Archimede's principle.
+Together, the two cases make up the Archimedes principle.
 They are covering the most cases that most people will ever face, so the principle could be used with no problem.
-However, in the figure \ref{archimedes-principle-failing-case} below, Archimede's principle fails to hold on the two orange boxes.
+However, in the figure \ref{archimedes-principle-failing-case} below, Archimedes principle fails to hold on the two orange boxes.
 
 \begin{figure}[h]
 	\begin{center}
 		\includegraphics[width=1.3in]{figures/ap-blind-spot.png}
 	\end{center}
-	\caption{When Archimede's principle fails to hold.}
+	\caption{When Archimedes principle fails to hold.}
 	\label{archimedes-principle-failing-case}
 \end{figure}
 

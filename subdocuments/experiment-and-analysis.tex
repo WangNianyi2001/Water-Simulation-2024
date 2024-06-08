@@ -1,11 +1,11 @@
 \section{Experiment and Analysis}
 
-All below experiments are setup with the Unity engine (version 2022.3.29f1) running on a PC on Windows 11.
+All below experiments are set up with the Unity engine (version 2022.3.29f1) running on a PC on Windows 11.
 The device runs on a CPU of 13th Gen Intel(R) Core(TM) i9-13900HX at 2.20 GHz with 16.0 GB of RAM.
 
 \subsection{Experiment (a): Realism}
 
-To test if the model could realistically simulate the buoyancy force, an experimental simulation immitating the scenario introduced at the beginning of the article where a plank falls into the water is setup.
+To test if the model could realistically simulate the buoyancy force, an experimental simulation immitating the scenario introduced at the beginning of the article where a plank falls into the water is set up.
 There are two aspects with which we can judge whether the model is succesful or not:
 \begin{enumerate}
 	\item Will the plank float back to the water surface and oscillate up and down until it reaches a stable state?
@@ -42,7 +42,7 @@ The properties of the water is given in table \ref{simulation-water-properties}.
 	\label{simulation-water-properties}
 \end{table}
 
-The sampling rate is set at 200 samples per physical frame.
+The sampling rate is set at 200 samples per surface area per physical frame.
 
 \paragraph*{The Process}
 
@@ -141,12 +141,12 @@ Based on the analysis of the result, we can say that our model has met the desir
 
 \subsection{Experiment (b): Performance}
 
-The performance of our method could be tested by keep spawning new buoyant objects and tracking the FPS.
+The performance of our method could be tested by keep spawning new buoyant objects and tracking the simulation framerate (FPS).
 
 \paragraph*{Environment Setup}
 
-The water body remains the same as in the above experiment, except that the sample rate is decrease to 20 samples per physical frame.
-An automatic object spawner is placed above the water surface, which will spawn new planks constantly at a custom rate (figure \ref{spawner-setup}).
+The same water body setup is used, with an automatic spawner dropping planks at a constant rate (figure \ref{spawner-setup}).
+The sampling rate is set to 20 (unit is same as above).
 
 \begin{figure}[h]
 	\centering
