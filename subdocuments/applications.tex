@@ -7,7 +7,7 @@ Apart from the designs of the game, one big factor limiting the freedom of the i
 Due to technical limitations, game developers lack the ways to fully simulate the water interactions and have to often manually overwrite the physical behaviors, which inevitably causes critical glitches \cite{RedditAssassin}.
 With our method, game developers could arbitrarily put objects into water bodies without having to worry about physical glitches.
 
-To apply out method into a game project, it is adviced to write a controller class for the water bodies, and let them be the source of the buoyancy forces;
+To apply our method into a game project, it is adviced to write a controller class for the water bodies, and let them be the source of the buoyancy forces;
 doing so could avoid having to add a ``buoyancy force receiver'' on every single solid objects.
 The water body controller does mainly two things:
 \begin{enumerate}
@@ -90,19 +90,20 @@ Table \ref{mesh-sampling-algorithm} gives an algorithm for generating random sam
 	\label{mesh-sampling-algorithm}
 \end{table}
 
-Figure \ref{boat-sample} shows an example of an application of a boat floating on the sea.
+Figure \ref{boat-sample} shows an example of an application of our method.
+A boat is floating on the sea; a pack of heavy balls are spawning above the boat and falling into it.
 Without having to write any additional codes, just by keeping loading heavy balls onto the boat, the sunk depth of the boat automatically increases.
 
 \begin{figure}[htb]
 	\centering
 	\begin{subcaptionblock}{0.46\textwidth}
 		\centering
-		\includegraphics[height=1in]{figures/light-boat.jpg}
+		\includegraphics[width=0.9\textwidth]{figures/light-boat.jpg}
 		\caption{A boat containing a few balls.}
 	\end{subcaptionblock}
 	\begin{subcaptionblock}{0.46\textwidth}
 		\centering
-		\includegraphics[height=1in]{figures/heavy-boat.jpg}
+		\includegraphics[width=0.9\textwidth]{figures/heavy-boat.jpg}
 		\caption{The same boat containing many balls.}
 	\end{subcaptionblock}
 	\caption{Loading more balls onto the boat increases its depth.}
