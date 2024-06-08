@@ -1,0 +1,95 @@
+\section{Resistance Forces}
+
+In reality, objects moving through fluid would gradually lose their kinetic energy due to the resistance between their surface and the water body.
+If this mechanism is missing, then an object in water might oscillate forever and cannot tend to a still state, which is artifactual.
+Also, our method is discretized, meaning that there might be floating-point precision errors introduced within every calculation steps.
+If not dealt with, these errors could potentially cause the physical system's energy to continuously accumulate and thus break the energy conservation law.
+Therefore, we would like this energy-losing mechanism to be added into our model by introducing some resistance components.
+
+The total resistance force of a solid object moving fluid, formally called \emph{parasitic drag}, is a combination of two separate sources of force \cite{wadell1934coefficient}:
+\begin{itemize}
+	\item The form drag, or pressure drag, due to the size and shape of the object.
+	\item The skin friction drag, or viscous drag, due to the friction between the fluid and the surface of the object.
+\end{itemize}
+
+\subsection{Form Drag}
+
+The form drag is caused by the surface of an object being pushed by the fluid blocking on its moving path.
+It is proportional to the square of the relative velocity between the moving object and the fluid \cite{flemmer1986drag}.
+The formula is given as (\ref{form-drag}); the letter $\mathbf{D}$ is used to represent a drag force.
+
+\begin{equation}
+	\mathbf{D}_{\text{form}}=\frac{1}{2}\,\rho\,u^2\,c_f\,A,
+	\label{form-drag}
+\end{equation}
+where:
+\begin{itemize}
+	\item $\rho$ is the mass density of the fluid;
+	\item $u$ is the flow velocity relative to the object;
+	\item $c_f$ is the drag coefficient, a dimensionless coefficient that depends on the fluid's properties;
+	\item $A$ is the area of the object's cross section perpendicular to $u$.
+\end{itemize}
+
+This formula is only suitable for calculating a rough net drag force for a whole object;
+for our application, we need to adapt it into a form that can be calculated on the sample points.
+This could be rather easily done by ``translating'' the terms in formula (\ref{form-drag}).
+\begin{itemize}
+	\item $\rho$ remains the same.
+	\item $u$ would be the velocity of the body \emph{at the sample point}.
+		The position matters because the body might be rotating; in which case the world velocity of each point would differ.
+	\item $c_f$ remains the same.
+	\item $A$ would be the perpendicular area of the triangular face that the sample lies on.
+		This can be calculated by multiplying the real area of the face with the dot product of its normal and the unit vector long $u$.
+\end{itemize}
+
+The form drag on each sample point is given as formula (\ref{sample-form-drag}).
+\begin{equation}
+	\mathbf{d}_{\text{form}}=\frac{1}{2}\,\rho\,\mathbf{v}^2\,c_f\,|\text{area}|\,(\hat{\mathbf{v}}\cdot\mathbf{n}).
+	\label{sample-form-drag}
+\end{equation}
+
+One important note is that if a face is \emph{not} repelling the fluid in front of it when moving, it should not produce any form drag.
+This can be checked by the dot product during the calculation of $A$: if the product is positive, simply drop the drag or make it zero.
+
+\subsection{Viscous Drag}
+
+The viscous drag is caused by the friction between the fluid and the object's surface as the surfaces passes along \emph{parallelly}.
+Similar to the form drag, the viscous drag is also proportional to the square of the flow velocity \cite{trouton1906coefficient}.
+The rough formula of a net viscous drag is given as formula (\ref{viscous-drag}).
+\begin{equation}
+	\mathbf{D}_{\text{viscous}}=\int_{\partial V}\frac{1}{2}\,\rho\,\mathbf{v}^2\,c_v\,\text{d}A.
+	\label{viscous-drag}
+\end{equation}
+It might looks different from formula (\ref{form-drag}), but really it is the same thing written under the notation of integral.
+
+The formula for the viscous drag on each sample point can be copied from formula (\ref{sample-form-drag}), but the coefficient needs to be changed, and the dot product should be replaced by the ``parallelliness'' between the face and the flow velocity, which can be given by the absolute value of the cross product.
+The formula is given as (\ref{sample-viscous-drag}).
+\begin{equation}
+	\mathbf{d}_{\text{viscous}}=\frac{1}{2}\,\rho\,\mathbf{v}^2\,c_v\,|\text{area}|\,|\hat{\mathbf{v}}\times\mathbf{n}|.
+	\label{sample-viscous-drag}
+\end{equation}
+If the method needs to be applied on an Euclidean space at a dimension other than 3 where a cross product is not well-defined, one could substitude the cross product term by $\sqrt{1-(\hat{\mathbf{v}}\cdot\mathbf{n})^2}$ \cite{blinn2003lines}.
+
+\subsection{Integrating Into the Model}
+
+To integrate the resistance forces into our model, we can substitute the sample force term in (\ref{net-pressure-force}) to make it contain the new forces.
+The new formula is given as (\ref{net-water-force}).
+\begin{equation}\begin{split}
+	\mathbf{F}_{\text{all}}=\frac
+		{
+			\bigoplus_{s}
+			\left(
+				w(s)\cdot\mathbf{f}_{\text{all}}(s)
+				,
+				\text{arm}(s)
+			\right)
+		}
+		{\sum_{s}w(s)},
+	\\
+	\mathbf{f}_{\text{all}}=\mathbf{f}_{\text{pressure}}+\mathbf{d}_{\text{form}}+\mathbf{d}_{\text{viscous}}.
+	\label{net-water-force}
+\end{split}\end{equation}
+
+Lastly, to ultimately suppress any potential unrealistic energy outbreak, such as a body bouncing back into the sky, one could forcefully apply a energy dissipation of any objects submerged in fluid.
+This could be achieved by applying a force and a torque in the opposite direction of the object's velocity and angular velocity continuously in every frame.
+The intensity of the force could be controlled by an configurable coefficient.

@@ -1,0 +1,60 @@
+\section{Conlusion and Discussion}
+
+Starting from digging into Archimedes law, we managed to build a realistic model of the buoyancy force on solid bodies submerged in fluid.
+To overcome the difficulties on discretization, we then apply the Monte-Carlo method on the model.
+By doing so, the model yields into a practical algorithm that can freely balance between quality and performance.
+To make it more realistic, we introduced the resistance terms into the model.
+After generalizing, the model can even support from introducing custom physical contributions to simulating other kinds of field interaction.
+In the last, we put the model on a run and verified its feasibility.
+The result shows that the model is capable for simulating the buoyancy force on submerged bodies in an interactive application in real-time.
+
+\paragraph*{Generalization}
+
+Although our method is proposed mainly based on the assumption of a static water body,
+the key formula (\ref{net-water-force}) is, however, completely irrelevant to this assumption.
+It is fundamentally a Monte-Carlo method to simulate the effect of any fleid on a rigidbody.
+One should be able to easily substitute the $\mathbf{f}_{\text{pressure}}$ term with their own version to make it compatible with a more complex implementation of the water body, for example, a particle or height field based water system; or substitute the entire $\mathbf{f}_{\text{all}}$ term to simulate other kinds of fields like a wind blow or magnetic field.
+
+\paragraph*{Limitation}
+
+Our method only provides a solution to one half of fluid-solid coupling -- how solid objects move in fluid.
+It is unable to use our method to simulate the backward effect that the solid object causes to the fluid.
+
+Our method runs on CPU and would thus suffer performance cost when there are many objects to simulate.
+One could try to optimize the performance in the following directions:
+\begin{itemize}
+	\item Finding a way to parallelize the computation.
+	\item Optimize the computation for fully-submerged bodies.
+\end{itemize}
+
+When running under a low sample rate, the method could result in instability.
+The random nature of the method would unevitably introduce noise into the physical outcome, leading to a Brownian-like vibrating behavior.
+This could appear artifactual, especially when the submerged body is close to the stable state.
+
+To avoid artifacts, one way is to increase the sample rate, but it would increase the cost on performance;
+another way is to use stabilizing or filtering algorithms.
+Doing so might introduce delay in the physical response;
+but depends on the actual application, the downstream developers shall be able to choose the best choice on their own.
+
+\begin{comment}
+\section*{Postscript and Acknowledgement}
+
+This is the first time I have ever written a serious academical article.
+It is guaranteed that there will be naive mistakes all over the place.
+Please excuse me, thou reader.
+If thou hast spotted any mistake, please feel free to contact me at \url{wangnianyi2001@outlook.com}.
+My apologies in advance!
+
+Thanks to the team of my graduation project, \emph{Nani Core} (\url{https://github.com/nani-core}).
+The idea of this article rose when I was making the water system in the project.
+They established the possibilty for this article to happen.
+Special thanks to 陈恩晖 (Omnisch) and 张嘉玥 (Limko).
+They are two really, really reliable co-workers and good friends of mine.
+They have given me the greatest mental and physical support on the project, and an unforgetful memory in my graduation year.
+\end{comment}
+
+\begin{comment}
+	\section*{Appendix}
+
+	A sample project of the simulation experiment is published at \url{https://github.com/WangNianyi2001/Water-Simulation-2024}.
+\end{comment}

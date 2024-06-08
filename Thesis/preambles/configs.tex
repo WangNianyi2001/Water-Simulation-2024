@@ -1,0 +1,32 @@
+% Enlarge the outer brackets of nested formulae.
+\delimitershortfall=-1pt
+
+% Bibliography.
+\bibstyle{eg-alpha-doi}
+
+% Pseudo code.
+\lstdefinestyle{pseudo}{
+	mathescape=true,
+	extendedchars=true,
+	frame=tB,
+	breaklines=true,
+	tabsize=2,
+	numbers=left,
+	numberstyle=\tiny,
+	basicstyle=\scriptsize,
+	keywordstyle=\color{black}\bfseries\em,
+	keywords={
+		input, output,
+		function, datatype,
+		return, yield, continue, break
+		for, foreach, while,
+		do, in, done,
+		in, on, from, to,
+		if, else,
+		begin, end,
+		new, delete,
+		add, apply,
+	},
+	numbers=left,
+	xleftmargin=.04\textwidth,
+}
