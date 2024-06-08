@@ -274,8 +274,8 @@ MonoBehaviour:
   waterMaskOffset: {x: 0, y: 0}
   decalLayerMask: 1
   lightLayerMask: 1
-  underWater: 0
-  volumeBounds: {fileID: 0}
+  underWater: 1
+  volumeBounds: {fileID: 1663257713}
   volumeDepth: 50
   volumePrority: 0
   transitionSize: 0.1
@@ -298,7 +298,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &230851599
 Transform:
   m_ObjectHideFlags: 0
@@ -994,7 +994,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 30
+  field of view: 60
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -1020,13 +1020,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1012781093}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.09606192, y: -0.76565975, z: 0.11807877, w: 0.62497574}
-  m_LocalPosition: {x: 24.049837, y: 6.584078, z: 5.1027746}
+  m_LocalRotation: {x: -0.00018510669, y: -0.70710677, z: 0.00018510669, w: 0.70710677}
+  m_LocalPosition: {x: 20, y: -5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 39.92, y: -122.492, z: 0.054}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0.03}
 --- !u!1 &1393427879
 GameObject:
   m_ObjectHideFlags: 0
@@ -1395,8 +1395,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: -0.5, z: 0}
+  m_Size: {x: 2, y: 1, z: 1}
+  m_Center: {x: 0.5, y: -0.5, z: 0}
 --- !u!114 &1663257714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1410,7 +1410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   profile: {fileID: 11400000, guid: c9fb9310a86f1cc48869e2f95bd066f6, type: 2}
-  sampleDensity: 100
+  sampleDensity: 500
 --- !u!1 &1853370145
 GameObject:
   m_ObjectHideFlags: 0
@@ -1470,7 +1470,7 @@ Transform:
   m_GameObject: {fileID: 1990104933}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 0}
+  m_LocalPosition: {x: 0, y: -10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -1495,8 +1495,8 @@ MonoBehaviour:
   - {fileID: 5632022980350895389, guid: 78e28736dbd67d7438db917923e28119, type: 3}
   - {fileID: 5632022980350895389, guid: 9d8d77db5edb9d8459f0b284f17ef359, type: 3}
   - {fileID: 7828775568355464306, guid: 74fc461fc70d67345be473bcf703ea0e, type: 3}
-  spawnInterval: 0.2
-  maxCount: 40
+  spawnInterval: 0.5
+  maxCount: 10
   maxVelocity: 5
   maxAngularVelocity: 6.28
   makeLogs: 0
