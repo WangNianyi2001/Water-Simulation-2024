@@ -54,56 +54,42 @@ The simulation will stop at an appropriate time after a relatively stable state 
 
 \paragraph*{Result}
 
-Figure \ref{simulation-result-heights} shows the position and the rotation of the plank relative to the water surface during the fall.
+Figure \ref{simulation-result} shows the position and the rotation of the plank relative to the water surface during the fall.
 The olive-colored line shows the position of the plank's center-of-mass, the blue line shows the height of the lowest point on the plank, and the red line shows the pitch of the plank's biggest surface -- when pointing to the sky it should be 90$^\circ$.
 
 \begin{figure}[h]
 	\centering
-	\begin{subcaptionblock}{0.48\textwidth}
-		\centering
-		\scalebox{0.65}{
-			\begin{tikzpicture}
-				\begin{axis}[
-					width=5in, height=2in,
-					enlargelimits=false,
-					xlabel={time (seconds)},
-					ylabel={meter},
-					ymin=-2, ymax=5, ytick={-2,-1,...,5},
-				]
-					\addplot[black] coordinates { (0,0) (5,0) };
-					\addplot[olive] table[x=t, y=com] {figures/simulation-record.dat};
-					\addplot[blue] table[x=t, y=min] {figures/simulation-record.dat};
-				\end{axis}
-				\begin{axis}[
-					width=5in, height=2in,
-					enlargelimits=false,
-					ylabel={degree},
-					ymin=0, ymax=90, ytick={0,15,...,90},
-					axis y line*=right,
-					ylabel near ticks, yticklabel pos=right,
-				]
-					\addplot[color=red] table[x=t, y=rx] {figures/simulation-record.dat};
-				\end{axis}
-				\matrix [draw, below left, fill=white] at (4.25in, 1.25in) {
-					\node[olive, font=\footnotesize] {center-of-mass}; \\
-					\node[blue, font=\footnotesize] {lowest point}; \\
-					\node[red, font=\footnotesize] {pitch}; \\
-				};
-			\end{tikzpicture}
-		}
-		\caption{The position and rotation of the plank during the fall.}
-		\label{simulation-result-heights}
-	\end{subcaptionblock}
-	\begin{subcaptionblock}{0.48\textwidth}
-		\centering
-		\scalebox{0.65}{
-			\begin{tikzpicture}
-			\end{tikzpicture}
-		}
-		\caption{The rotation of the plank during the fall.}
-		\label{simulation-result-rot}
-	\end{subcaptionblock}
-	\caption{The simulation data captured from experiment (a).}.
+	\scalebox{0.65}{
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=5in, height=2in,
+				enlargelimits=false,
+				xlabel={time (seconds)},
+				ylabel={meter},
+				ymin=-2, ymax=5, ytick={-2,-1,...,5},
+			]
+				\addplot[black] coordinates { (0,0) (5,0) };
+				\addplot[olive] table[x=t, y=com] {figures/simulation-record.dat};
+				\addplot[blue] table[x=t, y=min] {figures/simulation-record.dat};
+			\end{axis}
+			\begin{axis}[
+				width=5in, height=2in,
+				enlargelimits=false,
+				ylabel={degree},
+				ymin=0, ymax=90, ytick={0,15,...,90},
+				axis y line*=right,
+				ylabel near ticks, yticklabel pos=right,
+			]
+				\addplot[color=red] table[x=t, y=rx] {figures/simulation-record.dat};
+			\end{axis}
+			\matrix [draw, below left, fill=white] at (4.25in, 1.25in) {
+				\node[olive, font=\footnotesize] {center-of-mass}; \\
+				\node[blue, font=\footnotesize] {lowest point}; \\
+				\node[red, font=\footnotesize] {pitch}; \\
+			};
+		\end{tikzpicture}
+	}
+	\caption{The position and rotation of the plank during the fall.}
 	\label{simulation-result}
 \end{figure}
 
@@ -137,7 +123,7 @@ It can be seen from the olive line that the plank will indeed oscilate forever w
 	\label{experiment-no-resistance}
 \end{figure*}
 
-Based on the analysis of the result, we can say that our model has met the desired experiment result and is indeed succesful.
+Based on the analysis of the result, our model has met the desired requirements on realism.
 
 \subsection{Experiment (b): Performance}
 
@@ -145,7 +131,7 @@ The performance of our method could be tested by keep spawning new buoyant objec
 
 \paragraph*{Environment Setup}
 
-The same water body setup is used, with an automatic spawner dropping planks at a constant rate (figure \ref{spawner-setup}).
+The same water body setup is used, with an automatic spawner dropping planks at a constant rate (Figure \ref{spawner-setup}).
 The sampling rate is set to 20 (unit is same as above).
 
 \begin{figure}[h]
@@ -157,7 +143,7 @@ The sampling rate is set to 20 (unit is same as above).
 
 \paragraph*{The Process}
 
-Soon as the game starts, the object spawner would start working and dropping planks into the water.
+Soon as the scene starts, the object spawner would start working and dropping planks into the water.
 The number of spawned planks, the time since start and the FPS corresponding to the time would be recorded in real-time.
 Also, we would provide another set of FPS record of the same environment but without the presence of the water body as the comparison in order to clearly see the performance cost caused by our method instead of other environmental factors.
 

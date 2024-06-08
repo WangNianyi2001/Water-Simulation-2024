@@ -19,32 +19,33 @@ To apply the Monte-Carlo method, there are the following steps:
 Sampling on the mesh of a 3D model is not easy to do well \cite{ebeida2012uniform}.
 As already introduced previously, most game engines have poor interfaces for querying the geometry information of models, so they cannot be relied on.
 One might be thinking of sampling directly in the UV space, but there are some problems:
-\begin{itemize}
+\begin{enumerate}
 	\item
 		The area that a triangular face occupies in the UV space doesn't reflect its real area in the world space (or at least in its local space).
 		If we were to sample in the UV space, we would have to calculate a conversion ratio to convert the area between the two spaces, like the Jacobian determinant when changing an intergral variable.
 	\item Even if we do calculate the conversion ratio, there could be some faces with an zero area in the UV space.
 		If this happens, such face could never possibly be sampled and thus is missing from the buoyancy calculation, which will lead to artifactual result.
-\end{itemize}
+\end{enumerate}
 
 One possible workaround is to generate the samples directly on the triangular faces in the world space.
-\begin{itemize}
+\begin{enumerate}
 	\item For each sampling chance, first randomly choose a triangular face to sample on.
 		This is completely doable by accessing the basic model information.
 	\item Then, uniformly pick a pick a random point on the chosen face.
 		Given that the face is a triangle, this step is trivial.
-\end{itemize}
+\end{enumerate}
 
-After following these steps, there is only one problem remaining:
+Following these steps, we could generate random samples with an equivalently uniform distribution.
+There is only one problem remaining then:
 Every faces would share the same probability to be chosen, yet they are of different sizes.
 This is not desired, as a bigger face would receive bigger pressuring force in water;
 but under the same probability, they would have the same contribution to the net pressuring force.
 To solve this, an approach of weighted average could be applied.
-\begin{itemize}
+\begin{enumerate}
 	\item We grant each sample point a weight that equals to the area of the triangluar face it lands on, similar to the Jacobian determinant when changing an integral variable \cite{waldron1985study};
 	so that the samples on bigger faces would make bigger contribution of force;
 	\item And after all contributions are summed up, the weight sum would be divided from the totol contribution.
-\end{itemize}
+\end{enumerate}
 
 An important trait of a Monte-Carlo approach is that the balance between quality and performance can be adjusted.
 The higher the sample rate, the better the resulting quality, but it might cause a burden on performance;
@@ -53,7 +54,7 @@ vice versa, one could decrease the sample rate and sacrifices the quality to get
 \subsection{Calculating the Force on Each Sample}
 
 Once we have the whole surface of the body model sampled, we can calculate the local water pressure forces applied on the samples.
-Similar to equation (\ref{discretized-pressuring-force}), the pressure force for a sample point would be (\ref{sample-pressure-force}).
+Similar to equation (\ref{discretized-pressuring-force}), the pressure force for a sample point would be in the form of formula (\ref{sample-pressure-force}).
 \begin{equation}
 	\mathbf{f}_{\text{pressure}}(s)=
 	\begin{cases}
@@ -62,7 +63,7 @@ Similar to equation (\ref{discretized-pressuring-force}), the pressure force for
 	\end{cases}
 	\label{sample-pressure-force}
 \end{equation}
-Here the small $\mathbf{f}$ is used to indicate that this is the force on a single face, not the net force.
+Here the lowercase $\mathbf{f}$ is used to indicate that this is the force on a single face, not the net force.
 
 The weighting coefficient for each sample would be the area of the face that it lands on (formula (\ref{sample-weight})), as discussed in the previous section.
 \begin{equation}
@@ -110,7 +111,7 @@ If only the forces are added together, a zero vector would be expected as the re
 
 In general, the net physical effect on a body can be broken down into a force and a torque.
 Both of them are equivalently applied on the center of the mass, so that their exact position don't need to be explicitly taken care of.
-Given a positioned force $(\mathbf{f}, \mathbf{r})$, where $\mathbf{f}$ is the force and $\mathbf{r}$ is the vector from the center of mass to the point of effect, the equivalent force-torque tuple on the center of mass can be calculated by the following formulae (\ref{positioned-force-to-force-torque-tuple}).
+Given a positioned force $(\mathbf{f}, \mathbf{r})$, where $\mathbf{f}$ is the force and $\mathbf{r}$ is the vector from the center of mass to the point of effect, the equivalent force-torque tuple on the center of mass can be calculated by the following formula (\ref{positioned-force-to-force-torque-tuple}).
 
 \begin{equation}
 	(\mathbf{f},\mathbf{r})_{\text{positioned force}}

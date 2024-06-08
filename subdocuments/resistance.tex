@@ -32,7 +32,7 @@ where:
 
 This formula is only suitable for calculating a rough net drag force for a whole object;
 for our application, we need to adapt it into a form that can be calculated on the sample points.
-This could be rather easily done by ``translating'' the terms in (\ref{form-drag}).
+This could be rather easily done by ``translating'' the terms in formula (\ref{form-drag}).
 \begin{itemize}
 	\item $\rho$ remains the same.
 	\item $u$ would be the velocity of the body \emph{at the sample point}.
@@ -60,9 +60,9 @@ The rough formula of a net viscous drag is given as formula (\ref{viscous-drag})
 	\mathbf{D}_{\text{viscous}}=\int_{\partial V}\frac{1}{2}\,\rho\,\mathbf{v}^2\,c_v\,\text{d}A.
 	\label{viscous-drag}
 \end{equation}
-It might looks different from (\ref{form-drag}), but really it is the same thing written under the notation of integral.
+It might looks different from formula (\ref{form-drag}), but really it is the same thing written under the notation of integral.
 
-The formula for the viscous drag on each sample point can be copied from (\ref{sample-form-drag}), but the coefficient needs to be changed, and the dot product should be replaced by the ``parallelliness'' between the face and the flow velocity, which can be given by the absolute value of the cross product.
+The formula for the viscous drag on each sample point can be copied from formula (\ref{sample-form-drag}), but the coefficient needs to be changed, and the dot product should be replaced by the ``parallelliness'' between the face and the flow velocity, which can be given by the absolute value of the cross product.
 The formula is given as (\ref{sample-viscous-drag}).
 \begin{equation}
 	\mathbf{d}_{\text{viscous}}=\frac{1}{2}\,\rho\,\mathbf{v}^2\,c_v\,|\text{area}|\,|\hat{\mathbf{v}}\times\mathbf{n}|.
