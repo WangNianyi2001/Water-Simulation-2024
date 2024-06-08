@@ -3,8 +3,8 @@
 By using the \emph{Monte-Carlo method}, the above two problems could be resolved \cite{kroese2014monte}.
 It is a methodology of using a set of local information on random samples to estimate the accurate value, at a cost of certain amount of noise \cite{james1980monte}.
 In the case of buoyancy, the force only affects the floating object's acceleration directly, which is the second-order derivative of its location;
-as the time passes, the noises generated from the randomness could accumulate and statically cancel themselves out.
-Therefore, we can use a small set of water pressuring force calculated over random points on the floating body's surface to estimate the net buoyancy force without introducing too much error.
+as the time passes, the noises generated from the randomness could accumulate and statistically cancel themselves out.
+Therefore, we can use a small set of samples to estimate the net buoyancy force without introducing too much error.
 
 To apply the Monte-Carlo method, there are the following steps:
 \begin{enumerate}
@@ -91,7 +91,7 @@ This is because that forces applied on a physical body \emph{at specific locatio
 
 \subsection{Composing the Forces Together}
 
-In figure \ref{force-pair}, a pair of opposite forces is applied on the same body, but displaced from its center of mass.
+In Figure \ref{force-pair}, a pair of opposite forces is applied on the same body, but displaced from its center of mass.
 Under the effect of the two forces, the body would rotate in place, but not move at all.
 Such pair of opposite forces will not cause any movement on a physical body, but only the rotation.
 If only the forces are added together, a zero vector would be expected as the result; all information about the rotation would be lost.

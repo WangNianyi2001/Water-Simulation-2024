@@ -1,7 +1,7 @@
 \section{Related Works}
 
 The study on the physical interaction between solid objects and its surrounding environment could be traced back to a very early stage of Computer Graphics.
-Due to the natural complexity of the target, researches have never set their goals on creating a factual realistic result, but only a visual realism.
+Due to the natural complexity of the topic, researches have never set their goals on creating a factual realistic result, but only a visual realism.
 In the most common practices, solid objects were often modeled as rigid bodies as in \cite{BAR01}; when computing the physical effects, the whole body could be simplified into a single point at its center of mass.
 This simplification would cause problems when it comes to buoyancy simulation, as the real geometry of the solid object must be taken into account.
 To reach a more realistic result, two styles of approaches have been studied primarily according to \cite{GOU09} and \cite{wang2024physics}.
@@ -21,7 +21,7 @@ This study could achieve very realistic results, but nowhere meets the demand of
 Ultimately, \cite{macklin2014unified} came up with a model that could build everything with particles and perform physical simulation in real-time.
 This model is highly generic and effective in performance;
 however, it also reveals one big disadvantage of the Lagrangian approach:
-It suffers on simulating huge matter.
+It suffers on simulating physical matters that occupy expensive spaces.
 As the size of the matter to be simulated grows, the Lagrangian approach must keep adding more particles in to the simulation in order to take everything into consideration, eventually leading to performance problems.
 
 Due to the heavy computation it requires, the Lagrangian approach is seldomly used in interactive scenarios.
@@ -30,13 +30,13 @@ Due to the heavy computation it requires, the Lagrangian approach is seldomly us
 
 The Eulerian approach focuses on the physical field created by the existence and motion of the fluid matter.
 Their effects on submerged bodies could be thought of the net value on the bodies' surfaces under integration.
-Because the Eulerian approach treats the fluid matter as a whole, the heavy computation could be parallelized and performed by GPU, thus it has a great advantage in performance than the Lagrangian approach.
+Because the Eulerian approach treats the fluid matter as a whole, the heavy computation could be parallelized and performed on GPU, thus it has a great advantage in performance than the Lagrangian approach.
 
 \cite{teng2016eulerian} firstly gave out a solid-fluid coupling implementation that is based on entirely Eulerian fluid, but is not suitable for interactive applications as it would take seconds for a frame to be rendered with their method.
 
 \cite{GER13} proposed an optimized model of a panel-based Eulerian fluid-solid coupling.
 The model takes the entire fluid volume as the induced field of a limited amount of ``panels'' -- essentially generating seeds at certain location that represent the surrounding fluid motion in their adjacent spaces.
-This model is cheap enough to run at a real-time scale in a 2D game, but sacrifices the accuracy be reducing the freedom of the fluid's behavior.
+This model is cheap enough to run at a real-time scale in a 2D game, but sacrifices the accuracy from reducing the freedom of the fluid's behavior.
 
 \cite{BAJ20} matches our topic the best:
 They have proposed a model to simulate the sinking phases of buoyant objects.
@@ -44,5 +44,5 @@ Similar to \cite{GER13}, their method uses a seed-based simplification to reduce
 Their method could result in good visual realism over targets of different sizes, but requires the solid objects to be pre-configured with a seed graph.
 If the solid object's geometry changes at runtime, the graph would then be reflecting an incorrect physical proxy, leading to artifacts.
 
-Continuing on previous ideas, our model adapts an Eulerian approach that saves performance by reducing the computation on the net force.
+Continuing on previous ideas, our method adapts an Eulerian approach that saves performance by reducing the computation on the net force.
 This reduction is achieved by estimating over random samples over the surface of the submerged solid bodies' geometries.

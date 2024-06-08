@@ -9,7 +9,7 @@ however, there are still some edge cases where it will fail \cite{bierman2003rec
 Before showing the cases, we need to understand why the principle holds in the first place.
 
 The net buoyancy force can be seen as the unity of all the pressuring force from surrounding water applied on the floating object.
-The strength of water pressure is related to many variables, including the water's density, its velocity field, the local gravity strength, etc;
+The strength of water pressure is related to many variables, including the water's density, its velocity field, the local gravity strength, etc.;
 but in static water, the pressure (force per unit surface area) at the same height can be seen as the same, proportional to the depth to the water surface, as shown in formula (\ref{static-water-pressure}).
 \begin{equation}
 	P=\rho gh.
@@ -23,7 +23,7 @@ We can integrate this around the whole surface to get the net force, given as fo
 	\label{net-water-pressuring-force}
 \end{equation}
 If the object is fully sunk, we then have that the integrating surface would be the boundary of the object's volume ($S=\partial V$), which is guaranteed to be a 3D manifold.
-Under this assumption, using the \emph{divergence theorem} in multi-variable integration, formula (\ref{net-water-pressuring-force}) can be continued (\ref{archimedes-principle-formula}) \cite{pfeffer1986divergence}.
+Under this assumption, using the \emph{divergence theorem} in multi-variable integration, formula (\ref{net-water-pressuring-force}) can be continued as (\ref{archimedes-principle-formula}) \cite{pfeffer1986divergence}.
 \begin{equation}
 	\mathbf{F}_P=\iiint_{V}\rho\mathrm{d}v=-\rho\mathbf{g}|V|.
 	\label{archimedes-principle-formula}
@@ -32,7 +32,7 @@ This yields exactly the Archimedes principle.
 
 Surprisingly, when the object is only partially sunk, this equation still holds;
 just that the $V$ now means only the sunk part of the geometry.
-The reason that it still holds is because after taking a cut of the geometry at the water surface, the water pressure on newly cut surface would be zero, since it is overlapping with the water surface.
+The reason that it still holds is because after taking a cut of the geometry at the water surface, the water pressure on the newly cut surface would be zero, since it is overlapping with the water surface.
 
 Together, the two cases make up the Archimedes principle.
 They are covering the most cases that most people will ever face, so the principle could be used with no problem.
@@ -50,7 +50,7 @@ Both of the two boxes have one of their surfaces sticking to the wall, but neith
 This means that if they are really touching the water, they should receive a non-zero pressure.
 In these cases, formula (\ref{archimedes-principle-formula}) -- derived from the divergence theorem -- would be incorrectly taking the wall-surfaces' fake pressure into the sum of the net force, thus leading to a wrong result.
 
-To deal with such case, we could explicitly calculate the original integral following formula (\ref{net-water-pressuring-force}) to get the correct result; but an immediate problem is that it would require us to actually integrate all the infinitesimals.
+To deal with such cases, we could explicitly calculate the original integral following formula (\ref{net-water-pressuring-force}) to get the correct result; but an immediate problem is that it would require us to actually integrate all the infinitesimals.
 This is imposible for computers to achieve, so we need to transform them into finite surface fragments \cite{klosek1997integration}.
 
 Most common 3D model formats are based on polygons, so this can be done with no difficulties.
@@ -67,7 +67,7 @@ Although this formula can be directly calculated by a computer, it leads to two 
 \end{enumerate}
 
 The first problem is rather easy to see;
-and the reason for the second problem is that, as though the position for an infinitesimal of the surface is clearly defined, a small surface fragment has its extend in the space.
+and the reason for the second problem is that, as though the position for an infinitesimal of the surface is clearly defined, a small surface fragment has its extent in the space.
 Most commonly, a surface is not aligned directly to the Y-axis, and the different parts of it would be at different depth, resulting in experiencing different pressure (Figure \ref{water-pressure-differs-on-surface}).
 
 \begin{figure}[h]

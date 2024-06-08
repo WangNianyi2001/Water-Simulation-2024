@@ -15,7 +15,7 @@ the key formula (\ref{net-water-force}) is, however, completely irrelevant to th
 It is fundamentally a Monte-Carlo method to simulate the effect of any fleid on a rigidbody.
 One should be able to easily substitute the $\mathbf{f}_{\text{pressure}}$ term with their own version to make it compatible with a more complex implementation of the water body, for example, a particle or height field based water system; or substitute the entire $\mathbf{f}_{\text{all}}$ term to simulate other kinds of fields like a wind blow or magnetic field.
 
-\paragraph*{Limitations}
+\paragraph*{Limitation}
 
 Our method only provides a solution to one half of fluid-solid coupling -- how solid objects move in fluid.
 It is unable to use our method to simulate the backward effect that the solid object causes to the fluid.
@@ -37,7 +37,7 @@ Doing so might introduce delay in the physical response;
 but depends on the actual application, the downstream developers shall be able to choose the best choice on their own.
 
 \begin{comment}
-\section*{Postscripts and Acknowledgements}
+\section*{Postscript and Acknowledgement}
 
 This is the first time I have ever written a serious academical article.
 It is guaranteed that there will be naive mistakes all over the place.

@@ -34,12 +34,12 @@ To simulate this whole process in a computer, there are two difficulties to be d
 	\item It is not easy to find the exact volume of the submerged part of a solid object.
 
 		To get the accurate buoyancy force, one would have to find which parts exactly are sunk in the water and keep making queries to the geometrical shape of the solid object.
-		Unfortunately, common game engines only provides very limited interfaces on geometry information of physical bodies.
-		As a workaround manually iterate through all the surfaces of the physical body's collision mesh, calculate each forces applied on the surfaces, and sum them up.
+		Unfortunately, common game engines only provide very limited interfaces on geometry information of physical bodies.
+		As a workaround, one could manually iterate through all the surfaces of the physical body's collision mesh, calculate each forces applied on the surfaces, and sum them up.
 		This would be a linear performance cost relating to the amount of triangle surfaces of the floating object.
 		The more complex the object's geometry is, the longer the algorithm needs to run.
 
-	\item It could be overly computationally expensive or sometimes impossible.
+	\item It could be overly expensive or sometimes even impossible to compute.
 
 		Finding only the accurate geometry information isn't enough, as every surfaces could be partially sunk in the water.
 		If the algorithm only uses the full area of the surfaces to calculate the buoyancy force, then soon as an object touches the water, it would receive the maximum buoyancy force, which leads to artifacts.
@@ -50,6 +50,6 @@ To simulate this whole process in a computer, there are two difficulties to be d
 
 In general, to calculate the exact physical effect caused by the surrounding fluid environment, one would have to gather all the information around the whole surface of the target object.
 This would often lead to performance issues.
-However, although it is difficult to solve the problem directly, in this article we proposed a flexible solution based on the Monte Carlo method's idea.
+However, although it is difficult to solve the problem directly, in this article we proposed a flexible solution based on the Monte-Carlo method's idea.
 It solves the problem by using random sampling, and could get a statistically correct solution under a configurable amount of error due to the randomness introduced by the method.
 Because of this method of calculating environmental physical effect is not limited to the case of fluid, it could be easily adapted to other kinds of physical fields.
