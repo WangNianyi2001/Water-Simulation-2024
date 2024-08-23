@@ -5,7 +5,8 @@ outDir=Build
 entry:
 	latexmk \
 		-interaction=nonstopmode -f \
-		-pdf\
+		-quiet \
+		-pdf \
 		-outdir=$(outDir) \
 		$(inputFile)
 
