@@ -1,0 +1,59 @@
+\documentclass{article}
+
+\input{./preambles/packages.tex}
+\input{./preambles/configs.tex}
+\input{./preambles/definitions.tex}
+
+\title{A Generic Monte-Carlo Framework for Real-time Simulation of Rigid Body Motion Through Force Fields}
+\author{Nianyi Wang}
+\date{\today}
+
+\addbibresource{references.bib}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	Lorem ipsum.
+\end{abstract}
+
+\begin{keywords}
+	physical simulation;
+	Monte-Carlo;
+	one-way coupling;
+	force field;
+	rigid body
+\end{keywords}
+
+\section{Introduction}
+
+In real-time applications like video games, it is sometimes required to simulate the physical motion of objects moving through physical fields, such as how a light object would float due to the buoyancy force caused by the water body.
+With normal methods, it is necessary to make queries to the geometrical shape of the simulated object frequently, usually many times per frame, to ensure the preciseness of the simulation.
+However, most common game engines don't provide easy interfaces for geometrical shapes due to the consideration of runtime performance, and it'd be easy to run into performance issues if one were to implement these queries from scratch.
+
+In this article we propose a generic framework to achieve this kind of simulation in a unified way based on the Monte-Carlo method.
+It exposes an easy set of interfaces that is left for downstream developers to customize for the desired kind of physical field;
+it is also possible to tweak the parameters to balance between simulation quality and performance.
+
+\section{Related Works}
+
+Beginning with the most classical case of physical simulation that's challenging to run in real-time---water simulation, the exisiting methods could be divided into two parties: the Lagrangian approach and the Eulerian approach.
+
+\cite{BAR01}
+
+\section{Method}
+
+\section{Applications}
+
+\section{Limitation and Future Work}
+
+Jitter.
+
+\section{Conclusion}
+
+\section*{Acknowledgement}
+
+\printbibliography
+
+\end{document}
