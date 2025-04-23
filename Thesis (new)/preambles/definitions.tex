@@ -1,5 +1,24 @@
+\newcommand{\lorempar}[1][1]{{%
+	\fontspec{Comic Sans MS}%
+	\lipsum[#1]%
+}}
+
 \newenvironment{keywords}{
 	\begin{paragraph}{Keywords}
 }{
 	\end{paragraph}
 }
+
+\newtoggle{redaction}
+\settoggle{redaction}{false}
+\NewDocumentEnvironment{redacted}{+b}{%
+	\iftoggle{redaction}{%
+		{%
+			\centering%
+			\color{BrickRed}%
+			\texttt{[REDACTED]}%
+		}%
+	}{%
+		#1%
+	}%
+}{}
