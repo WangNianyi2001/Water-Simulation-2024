@@ -7,6 +7,11 @@ In a dynamic fluid environment, a more complex equation should be used to derive
 
 For common real time usage like video games, using the simple but inaccurate formula as presented in this article would be just fine; but for serious use cases, the downstream developer should definitely consider switching to the more accurate formula.
 
+\subsection{Two-way coupling}
+
+Our method only focuses on the one-way effect from water to the submerged bodies, meaning that the existence of the solid bodies will not affect the water's physical status at all.
+If this could be combined with a fluid solver to make the water move, the resulting realism would be immediately improved by a lot.
+
 \subsection{Generic extension}
 
 Our method isn't bounded to buoyancy simulation---it can as well process other kinds of physical effects of rigid bodies moving through a field.
