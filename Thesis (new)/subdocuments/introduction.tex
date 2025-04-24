@@ -1,7 +1,7 @@
 \section{Introduction}
 
-In real-time applications like video games, it is sometimes necessary to simulate the motion of objects submerged in water.
-With regular methods, making frequent queries to the geometrical shape of the simulated object is inevitable to ensure the realism of the simulation.
+Simulating the buoyancing motion of objects submerged in water in a real time application could be challenging.
+This is a problem that naturally requires developer to make queries to the geometrical shape of the simulated object to ensure visual realism.
 Such queries could go on at a frequency of many times per object per frame.
 The underlying calculation to perform such simulation would require the geometry information of the target objects, but common game engines don't provide well-encapsulated interfaces for it due to the consideration of runtime performance.
 It'd be easy to run into performance issues if one were to implement these queries from scratch.
