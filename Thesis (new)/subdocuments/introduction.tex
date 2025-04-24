@@ -1,11 +1,17 @@
 \section{Introduction}
 
-Simulating the buoyancing motion of objects submerged in water in a real time application could be challenging.
-This is a problem that naturally requires developer to make queries to the geometrical shape of the simulated object to ensure visual realism.
-Such queries could go on at a frequency of many times per object per frame.
-The underlying calculation to perform such simulation would require the geometry information of the target objects, but common game engines don't provide well-encapsulated interfaces for it due to the consideration of runtime performance.
-It'd be easy to run into performance issues if one were to implement these queries from scratch.
+Buoyancy simulation plays a crucial role in interactive physical environments such as video games and virtual training systems.
+Accurately capturing how rigid bodies interact with fluids is essential for achieving realism in scenes involving floating, sinking, or partially submerged objects.
+However, integrating such simulations into real-time applications remains a nontrivial challenge.
 
-In this article, we propose a method to simulate based on the Monte-Carlo method.
-It is possible to change the sampling intensity to balance between simulation quality and performance.
-With some effort, we could transform the core idea of this method into a generic framework that is capable for simulating any kind of physical effect of rigid bodies moving through a force field.
+One primary difficulty lies in the need to repeatedly query an object’s geometry to determine which parts are submerged, in what orientation, and with what surface normals---information that is typically expensive to compute at runtime.
+While modern game engines provide powerful physics and rendering systems, they often lack efficient, high-level abstractions for interacting with geometry at the fidelity required for fluid-solid interactions.
+Implementing these queries from scratch is possible, but performance constraints make naive approaches infeasible for real-time usage.
+
+Existing buoyancy simulation methods often rely on heuristics or proxy approximations that sacrifice accuracy or require extensive manual setup per object.
+To avoid this, we present a Monte-Carlo-based method that addresses these trade-offs by directly approximating buoyancy forces through surface sampling.
+Our approach enables a practical compromise between accuracy and computational cost by adjusting the sampling density dynamically.
+It could naturally capture both linear and rotational effects (torque), and is applicable to arbitrary rigid body shapes without the need for object-specific preprocessing.
+
+We also provided a way to generalize the core structure of our method onto any physical effect governed by surface or volume integrals.
+With minimal integration effort, this method can serve as a drop-in component in modern game engines, enabling physically plausible, real-time field-object interaction at scale.
