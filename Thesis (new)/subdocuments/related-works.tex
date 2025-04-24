@@ -1,6 +1,6 @@
 \section{Related Works}
 
-Speaking in the field of water simulation, the exisiting methods could be divided into two parties: the Lagrangian method, which models water into individual particles and simulates the physical behavior of each, and the Eulerian method, which treats the entire water body as a continuous region and represents it as a field \cite{GOU09}.
+The exisiting methods of water simulation could be divided into two parties: the Lagrangian method, which models water into individual particles and simulates the physical behavior of each, and the Eulerian method, which treats the entire water body as a continuous region and represents it as a field \cite{GOU09}.
 Most of the researches on these methods focus on simulating either water itself or the two-way physical coupling between water and submerged objects;
 but in this research, we mainly focus on the one-way effect caused on the objects by the field.
 The Lagrangian method would have little contribution to our goal, so we will scope on only the Eulerian method.
@@ -16,4 +16,4 @@ It is cheap enough to run at a real-time scale in a 2D game, but sacrifices the 
 When an object is submerged in water, the algorithm would simulate the gradual change of water floating into the containers, thus creating a sinking effect.
 This algorithm is also cheap enough to be run in real-time, but requires all objects that would be submerged to be equipped with manually-configured virtual container setup.
 
-There were two Monte-Carlo fluid simulation algorithm (\cite{sugimoto2024velocity} and \cite{rioux2022monte}) proposed in recent years, but they are all fluid solvers, not capable for handling the physical effect on objects moving through.
+There were two Monte-Carlo fluid simulation algorithm (\cite{sugimoto2024velocity} and \cite{rioux2022monte}) proposed in recent years, but they are all fluid solvers, not capable for computing the buoyancy forces.

@@ -3,14 +3,13 @@
 All below experiments are set up with the Unity engine (version 2022.3.29f1) running on a PC on Windows 11.
 The device runs on a CPU of 13th Gen Intel(R) Core(TM) i9-13900HX at 2.20 GHz with 16.0 GB of RAM.
 
-\subsection{Experiment (a): Realism}
+\subsection*{Experiment (a): Realism}
 
-To test if the model could realistically simulate the buoyancy force, an experimental simulation immitating the scenario introduced at the beginning of the article where a plank falls into the water is set up.
-There are two aspects with which we can judge whether the model is succesful or not:
+To test if our method could realistically simulate the buoyancy force, an experimental simulation immitating the scenario introduced at the beginning of the article where a plank falls into the water is set up.
+There are two criterias for realism:
 \begin{enumerate}
 	\item Will the plank float back to the water surface and oscillate up and down until it reaches a stable state?
 	\item Will the plank turn its flat face up under the influence of the buoyancy force?
-	\item If the resistance terms are omitted, will the plank oscillate forever whilst the kinetic energy is conserved?
 \end{enumerate}
 
 \paragraph*{Environment Setup}
@@ -27,7 +26,7 @@ The water block is wide and deep enough so that the plank would never touch the 
 	\label{simulation-environment}
 \end{figure}
 
-The properties of the water is given in table \ref{simulation-water-properties}.
+The properties of the water is given in table \ref{simulation-water-properties} (the dissipation term is not used in this experiment).
 
 \begin{table}[h]
 	\centering
@@ -44,7 +43,7 @@ The properties of the water is given in table \ref{simulation-water-properties}.
 
 The sampling rate is set at 200 samples per surface area per physical frame.
 
-\paragraph*{The Process}
+\paragraph*{Process}
 
 At the beginning of the simulation, the plank is let go free-falling into the water.
 
@@ -98,6 +97,7 @@ meanwhile it started perceiving an upward buoyancy force, repulsing it from cont
 Eventually, the plank floats up to the water surface and oscillates to a stable state (the olive line tends to be horizontal);
 also, the plank's flat face is aligned to the water surface (red line approaches $y=90$).
 
+\begin{comment}
 Figure \ref{experiment-no-resistance} shows a clip of the simulation result when the resistance terms are omitted by setting the drag and  dissipation coefficients to zero.
 It can be seen from the olive line that the plank will indeed oscilate forever whilst keeping its kinematic energy.
 
@@ -122,10 +122,11 @@ It can be seen from the olive line that the plank will indeed oscilate forever w
 	\caption{The resistance-free simulation data captured from experiment (a).}.
 	\label{experiment-no-resistance}
 \end{figure*}
+\end{comment}
 
-Based on the analysis of the result, our model has met the desired requirements on realism.
+Based on the analysis of the result, our method has met the desired requirements on realism.
 
-\subsection{Experiment (b): Performance}
+\subsection*{Experiment (b): Performance}
 
 The performance of our method could be tested by keep spawning new buoyant objects and tracking the simulation framerate (FPS).
 
@@ -141,7 +142,7 @@ The sampling rate is set to 20 (unit is same as above).
 	\label{spawner-setup}
 \end{figure}
 
-\paragraph*{The Process}
+\paragraph*{Process}
 
 Soon as the scene starts, the object spawner would start working and dropping planks into the water.
 The number of spawned planks, the time since start and the FPS corresponding to the time would be recorded in real-time.
@@ -151,7 +152,7 @@ Also, we would provide another set of FPS record of the same environment but wit
 
 Figure \ref{experiment-spawner} shows the change of FPS as more and more planks are spawned and dropped into the water body.
 
-\begin{figure*}[h]
+\begin{figure*}[htb]
 	\centering
 	\fbox{
 		\scalebox{0.75}{

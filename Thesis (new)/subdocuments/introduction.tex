@@ -1,13 +1,11 @@
 \section{Introduction}
 
-In real-time applications like video games, it is sometimes necessary to simulate the motion of objects moving through physical fields, such as how a low-density object in water would float due to the buoyancy force.
-With regular methods, making frequent queries to the geometrical shape of the simulated object is sometimes inevitable to ensure the realism of the simulation.
+In real-time applications like video games, it is sometimes necessary to simulate the motion of objects submerged in water.
+With regular methods, making frequent queries to the geometrical shape of the simulated object is inevitable to ensure the realism of the simulation.
 Such queries could go on at a frequency of many times per object per frame.
 The underlying calculation to perform such simulation would require the geometry information of the target objects, but common game engines don't provide well-encapsulated interfaces for it due to the consideration of runtime performance.
 It'd be easy to run into performance issues if one were to implement these queries from scratch.
 
-In this article, we propose a generic framework to compute this type of simulation in a unified way based on the Monte-Carlo method.
-It exposes a set of well-encapsulated interfaces for downstream developers to customize for the desired kind of physical field;
-it is also possible to tweak the parameters to balance between simulation quality and performance.
-
-The idea of this article originates from simulating the buoyancy behavior of objects submerged in water, so we will be introducing our method mainly with water simulation as a concrete situation.
+In this article, we propose a method to simulate based on the Monte-Carlo method.
+It is possible to change the sampling intensity to balance between simulation quality and performance.
+With some effort, we could transform the core idea of this method into a generic framework that is capable for simulating any kind of physical effect of rigid bodies moving through a force field.
