@@ -1,6 +1,27 @@
 \section{Method}
 
-\subsection{Root obervation}
+In this section, we propose a Monte Carlo-based surface sampling framework for real time estimation of buoyancy forces and torques acting on rigid bodies. The method achieves a balance between physical plausibility and computational efficiency through stochastic integration over the submerged surfaces.
+
+We begin by recalling that, according to the divergence theorem, the volume integral of the divergence of a vector field can be converted into a surface integral over the boundary. When applied to the hydrostatic pressure field in a fluid, this principle enables the computation of the total buoyant force by integrating local pressures over the wetted surface of the object. Moreover, by considering the moment arms of surface forces relative to the center of mass, the resulting torque can also be accurately determined.
+
+To approximate the surface integral in real time, we randomly sample a set of points over the submerged portion of the rigid body's surface. Each sample point is treated as representing a localized surface element. For simplicity and generality, we assume access to an abstract uniform surface sampling mechanism without delving into mesh-level implementation details.
+
+At each sampled point, the local fluid pressure is computed based on the depth below the fluid surface, using a hydrostatic approximation. Additionally, to better reflect dynamic behaviors, we include form drag and viscous drag forces, proportional to the normal and tangential components of the surface-relative velocity, respectively. The total local force at each sample is the sum of these contributions, scaled appropriately by empirical coefficients that control drag intensities.
+
+The net buoyancy force and torque are estimated by aggregating all local contributions. Since the random sampling process does not guarantee even coverage of the true surface area, we introduce a normalization step. The estimated total force \(\hat{F}\) is given by:
+
+\begin{equation}
+	\hat{F}=\frac{A}{\sum_i w_i} \sum_{i}w_if(x_i),
+\end{equation}
+
+where \(A\) is the known submerged surface area, \(w_i\) is the representative weight (area) of each sample, and \(f(x_i)\) is the force computed at sample \(x_i\). This normalization ensures that the Monte Carlo estimator remains unbiased and robust across varying sampling densities.
+
+Each sample's force is converted into a force-torque pair about the center of mass, using rigid body dynamics relations. Summing all sample contributions yields the final total force and torque, which are then applied to update the rigid body's motion. Specific implementation details, such as the application of forces in physics engines, are beyond the scope of this methodological description.
+
+Compared to traditional proxy-based methods that rely on simplified primitives and manual configuration, our method provides greater automation and generality, especially for complex or procedurally generated geometries. In contrast to full two-way coupling schemes that require solving fluid dynamics explicitly, our one-way coupling approach targets static or quasi-static fluid environments, achieving significant computational savings without compromising key physical realism. Furthermore, by leveraging stochastic sampling, the method allows for dynamic adjustment of sampling density, offering developers a flexible trade-off between simulation fidelity and runtime performance in real time applications.
+
+\begin{comment}
+\subsection{Root observation}
 
 To get to our method, start with the following observation:
 Rigid bodies are treated as point masses in many cases because the precise shapes don't matter, but in the case of simulating their behavior moving through a medium field, they do matter.
@@ -100,3 +121,4 @@ After adding these, the resulting formula for the water pressure on a sample poi
 	p=-\rho gh-\frac12c_f|v_{\perp}|^2-\frac12c_v|v_{\parallel}|^2.
 	\label{eq:resulting-pressure-formula}
 \end{equation}
+\end{comment}
