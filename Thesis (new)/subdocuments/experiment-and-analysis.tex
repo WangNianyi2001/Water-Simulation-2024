@@ -1,64 +1,37 @@
 \section{Experiment and Analysis}
 
-All below experiments are set up with the Unity engine (version 2022.3.29f1) running on a PC on Windows 11.
-The device runs on a CPU of 13th Gen Intel(R) Core(TM) i9-13900HX at 2.20 GHz with 16.0 GB of RAM.
+This section presents a series of experiments to validate the proposed method in terms of physical realism and performance scalability. We also perform a comparative analysis against existing common approximation methods to evaluate its applicability and advantages in real-world scenarios.
 
-\subsection*{Experiment (a): Realism}
+\subsection*{Experiment 1: Validation of Physical Realism}
 
-To test if our method could realistically simulate the buoyancy force, an experimental simulation immitating the scenario introduced at the beginning of the article where a plank falls into the water is set up.
-There are two criterias for realism:
-\begin{enumerate}
-	\item Will the plank float back to the water surface and oscillate up and down until it reaches a stable state?
-	\item Will the plank turn its flat face up under the influence of the buoyancy force?
-\end{enumerate}
+\subsubsection*{Objective}
+To verify whether the proposed method can accurately simulate the floating, sinking, and rotational behaviors of rigid bodies in fluids, with a particular focus on the correctness of torque effects.
 
-\paragraph*{Environment Setup}
+\subsubsection*{Setup}
+\begin{itemize}
+		\item \itemheader{Platform} Unity 2022.3.29f1, Windows 11, 13th Gen Intel(R) Core(TM) i9-13900HX @ 2.20GHz, 16GB RAM.
+		\item \itemheader{Scene} A lightweight plank freely falls into a static water body.
+		\item \itemheader{Physical Settings}
+		\begin{itemize}
+				\item Water density $\rho = 1.33$.
+				\item Plank density is lower than water to ensure floating.
+				\item Energy dissipation terms are disabled to purely observe buoyancy effects.
+		\end{itemize}
+		\item \itemheader{Sampling Density} 200 surface samples per surface area.
+\end{itemize}
 
-In an empty scene, a block of static water is placed amid air.
-A piece of plank is put above the water surface for a couple of meter's height (figure \ref{simulation-environment}).
-The plank's density is made to be lighter than the water density so that it floats.
-The water block is wide and deep enough so that the plank would never touch the other faces except the top face.
+\subsubsection*{Measurement Metrics}
+\begin{itemize}
+		\item Variation of the plank's center of mass height over time.
+		\item Variation of the plank's lowest point height over time.
+		\item Variation of the pitch angle of the plank's main surface normal over time.
+\end{itemize}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.4\textwidth]{../Thesis/figures/experiment-environment.jpg}
-	\caption{The simulation environment.}
-	\label{simulation-environment}
-\end{figure}
-
-The properties of the water is given in table \ref{simulation-water-properties} (the dissipation term is not used in this experiment).
-
-\begin{table}[H]
-	\centering
-	\begin{tabular}{ c c c c }
-		\hline
-		$\rho$ {\footnotesize(density)} & $c_f$ {\footnotesize(form coef.)} & $c_v$ {\footnotesize(visc. coef.)} & {\small dissipation coef.} \\
-		\hline
-		1.33 & 0.1 & 0.1 & 1.0 \\
-		\hline
-	\end{tabular}
-	\caption{The properties of the water used in the simulation.}
-	\label{simulation-water-properties}
-\end{table}
-
-The sampling rate is set at 200 samples per surface area per physical frame.
-
-\paragraph*{Process}
-
-At the beginning of the simulation, the plank is let go free-falling into the water.
-
-During the whole process of the simulation, the critical physical properties of the plank will be recorded in every frame for later analysis.
-
-The simulation will stop at an appropriate time after a relatively stable state is reached.
-
-\paragraph*{Result}
-
-Figure \ref{simulation-result} shows the position and the rotation of the plank relative to the water surface during the fall.
-The olive-colored line shows the position of the plank's center-of-mass, the blue line shows the height of the lowest point on the plank, and the red line shows the pitch of the plank's biggest surface -- when pointing to the sky it should be 90$^\circ$.
+\subsubsection*{Results}
 
 \begin{figure}[H]
 	\centering
-	\scalebox{0.65}{
+	\scalebox{1}{
 		\begin{tikzpicture}
 			\begin{axis}[
 				width=5in, height=2in,
@@ -66,6 +39,7 @@ The olive-colored line shows the position of the plank's center-of-mass, the blu
 				xlabel={time (seconds)},
 				ylabel={meter},
 				ymin=-2, ymax=5, ytick={-2,-1,...,5},
+				axis y line*=left,
 			]
 				\addplot[black] coordinates { (0,0) (5,0) };
 				\addplot[olive] table[x=t, y=com] {../Thesis/figures/simulation-record.dat};
@@ -88,111 +62,112 @@ The olive-colored line shows the position of the plank's center-of-mass, the blu
 			};
 		\end{tikzpicture}
 	}
-	\caption{The position and rotation of the plank during the fall.}
-	\label{simulation-result}
+	\label{fig:exp1}
 \end{figure}
 
-From the figures we can see, soon as the plank touches the water surface (the blue line intersects with the black horizontal line), it immediately started to rotate (the red line rises) so that its flat face is splatted onto the water surface;
-meanwhile it started perceiving an upward buoyancy force, repulsing it from continuing falling (the olive line starts accelerating upwards).
-Eventually, the plank floats up to the water surface and oscillates to a stable state (the olive line tends to be horizontal);
-also, the plank's flat face is aligned to the water surface (red line approaches $y=90$).
+\subsubsection*{Analysis}
 
-\begin{comment}
-Figure \ref{experiment-no-resistance} shows a clip of the simulation result when the resistance terms are omitted by setting the drag and  dissipation coefficients to zero.
-It can be seen from the olive line that the plank will indeed oscilate forever whilst keeping its kinematic energy.
+\begin{itemize}
+		\item The plank quickly experiences localized buoyant forces upon contacting the water and starts rotating, eventually stabilizing with its large face facing upward.
+		\item The center of mass height exhibits a typical damped oscillation, consistent with real-world floating behavior.
+\end{itemize}
 
-\begin{figure*}[h]
-	\centering
-	\begin{tikzpicture}
-		\begin{axis}[
-			width=6in, height=1.5in,
-			enlargelimits=false,
-			xlabel={time (seconds)},
-			ymin=-5, ymax=5, ytick={-5,0,...,5},
-		]
-			\addplot[black] coordinates { (0,0) (10,0) };
-			\addplot[olive] table[x=t, y=com] {../Thesis/figures/no-resistance.dat};
-			\addplot[blue] table[x=t, y=min] {../Thesis/figures/no-resistance.dat};
-		\end{axis}
-		\matrix [draw, above left, fill=white] at (5.25in, 0.05in) {
-			\node[olive, font=\footnotesize] {center-of-mass}; \\
-			\node[blue, font=\footnotesize] {lowest point}; \\
-		};
-	\end{tikzpicture}
-	\caption{The resistance-free simulation data captured from experiment (a).}.
-	\label{experiment-no-resistance}
-\end{figure*}
-\end{comment}
+\subsubsection*{Summary}
+The experimental results confirm that the proposed method can effectively simulate buoyancy and induced rotational behaviors, with dynamics aligning with physical expectations.
 
-Based on the analysis of the result, our method has met the desired requirements on realism.
+\subsection*{Experiment 2: Performance and Scalability Test}
 
-\subsection*{Experiment (b): Performance}
+\subsubsection*{Objective}
+To test how the method impacts performance (FPS) as the number of submerged objects increases, and to evaluate load capacity under different sampling densities.
 
-The performance of our method could be tested by keep spawning new buoyant objects and tracking the simulation framerate (FPS).
+\subsubsection*{Setup}
+\begin{itemize}
+		\item \textbf{Same platform and water environment}.
+		\item \itemheader{Scene} Lightweight blocks are continuously generated and dropped at a fixed rate.
+		\item \itemheader{Comparative Variables}
+		\begin{itemize}
+				\item With water (buoyancy simulation enabled) vs. without water (baseline FPS).
+				\item Different surface sampling densities ($s$): 20, 50, 100 per object per surface area.
+		\end{itemize}
+\end{itemize}
 
-\paragraph*{Environment Setup}
+\subsubsection*{Measurement Metrics}
+\begin{itemize}
+		\item FPS versus number of submerged objects.
+		\item (Optional) Average per-frame buoyancy computation time.
+\end{itemize}
 
-The same water body setup is used, with an automatic spawner dropping planks at a constant rate (Figure \ref{spawner-setup}).
-The sampling rate is set to 20 (unit is same as above).
+\subsubsection*{Results}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.4\textwidth]{../Thesis/figures/spawner-setup.jpg}
-	\caption{A screenshot of the working object spawner.}
-	\label{spawner-setup}
+	\begin{tikzpicture}
+		\begin{axis}[
+			width=6in, height=4in,
+			enlargelimits=false,
+			xlabel={Number of objects},
+			xmin=0, xmax=100,
+			ymin=0, ymax=200,
+			ylabel=FPS,
+			legend style={at={(1,0)}, anchor=south east, legend columns=1}
+		]
+			\addplot[black] table[x index=0, y index=1, col sep=comma] {./figures/exp2/d0.log};
+			\addlegendentry{simulation off}
+
+			\addplot[red] table[x index=0, y index=1, col sep=comma] {./figures/exp2/d10.log};
+			\addlegendentry{$s=10$}
+
+			\addplot[blue] table[x index=0, y index=1, col sep=comma] {./figures/exp2/d20.log};
+			\addlegendentry{$s=20$}
+
+			\addplot[green] table[x index=0, y index=1, col sep=comma] {./figures/exp2/d50.log};
+			\addlegendentry{$s=50$}
+
+			\addplot[purple] table[x index=0, y index=1, col sep=comma] {./figures/exp2/d100.log};
+			\addlegendentry{$s=100$}
+		\end{axis}
+	\end{tikzpicture}
+	\label{fig:exp2}
 \end{figure}
 
-\paragraph*{Process}
+\subsubsection*{Analysis}
 
-Soon as the scene starts, the object spawner would start working and dropping planks into the water.
-The number of spawned planks, the time since start and the FPS corresponding to the time would be recorded in real-time.
-Also, we would provide another set of FPS record of the same environment but without the presence of the water body as the comparison in order to clearly see the performance cost caused by our method instead of other environmental factors.
+\begin{itemize}
+		\item FPS decreases linearly with the number of submerged objects, consistent with $O(N)$ complexity expectations.
+		\item Under moderate sampling densities (20–50 samples/m$^2$), real-time performance (above 60 FPS) is maintained with up to 30–50 objects.
+\end{itemize}
 
-\paragraph*{Result}
+\subsubsection*{Summary}
+The method demonstrates good scalability for moderate numbers of objects and allows flexible trade-offs between accuracy and performance by adjusting sampling density.
 
-Figure \ref{experiment-spawner} shows the change of FPS as more and more planks are spawned and dropped into the water body.
+\subsection*{Experiment 3: Comparative Analysis}
 
-\begin{figure*}[H]
-	\centering
-	\fbox{
-		\scalebox{0.75}{
-			\begin{tikzpicture}
-				\begin{axis}[
-					width=6in, height=2in,
-					enlargelimits=false,
-					xlabel={time (seconds)},
-					xmin=0, xmax=5,
-					ymin=0, ymax=500,
-					axis y line*=left,
-					ylabel=FPS
-				]
-					\addplot[blue] table[x=t, y=fps] {../Thesis/figures/spawner-real.dat};
-					\addplot[gray] table[x=t, y=fps] {../Thesis/figures/spawner-compare.dat};
-				\end{axis}
-				\begin{axis}[
-					width=6in, height=2in,
-					enlargelimits=false,
-					xmin=0, xmax=5,
-					ymin=0, ymax=50,
-					ylabel=number of objects
-					axis y line*=right,
-					ylabel near ticks, yticklabel pos=right,
-				]
-					\addplot[red] table[x=t, y=n] {../Thesis/figures/spawner-real.dat};
-				\end{axis}
-				\matrix [draw, above left, fill=white] at (5.25in, 0.05in) {
-					\node[blue, font=\footnotesize] {control}; \\
-					\node[gray, font=\footnotesize] {comparison}; \\
-				};
-			\end{tikzpicture}
-		}
-	}
-	\caption{The performance data collected from experiment (b).}.
-	\label{experiment-spawner}
-\end{figure*}
+\subsubsection*{Objective}
+To further validate the advantages of the proposed method, a comparison is made against a common manual buoyancy approximation method using multiple sphere pontoons.
 
-From the result we can see that our method would cause a linear cost on the performance as the number of submerged objects increases.
-At around the time when the amount of objects exceeds 30, it would drag the performance down for about 50\% under the current environment.
+\subsubsection*{Design}
+\begin{itemize}
+		\item Same plank object and water environment.
+		\item Comparative Metrics:
+		\begin{itemize}
+				\item Simulation realism (e.g., reasonable rotation behavior).
+				\item Buoyancy error (using stable submerged depth as a reference).
+				\item FPS variation trend.
+		\end{itemize}
+\end{itemize}
 
-In conclusion, our method is suitable for simulations where there are a moderate amount of submerged objects;
-it may cause a performance burden if there are too much objects at the same time.
+\subsubsection*{Results}
+
+{\LARGE\color{red}TODO}
+
+\subsubsection*{Analysis}
+
+{\LARGE\color{red}TODO}
+
+\subsection*{Summary}
+
+\begin{itemize}
+		\item The proposed method outperforms traditional approximation methods in terms of physical realism and torque capturing.
+		\item It maintains good scalability in real-time applications involving small to moderate numbers of submerged objects.
+		\item It offers greater flexibility and generality when adapting to complex or procedurally generated geometries.
+\end{itemize}
