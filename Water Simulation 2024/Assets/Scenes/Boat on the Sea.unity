@@ -355,6 +355,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1737104695718234607, guid: 8ec9692f498a8e843be08ddacbff677b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1737104695718234607, guid: 8ec9692f498a8e843be08ddacbff677b, type: 3}
       propertyPath: m_Center.y
       value: 1.0683286
       objectReference: {fileID: 0}
@@ -914,7 +918,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   profile: {fileID: 11400000, guid: c9fb9310a86f1cc48869e2f95bd066f6, type: 2}
-  sampleDensity: 1000
+  sampleDensity: 1
 --- !u!1 &2021970655
 GameObject:
   m_ObjectHideFlags: 0

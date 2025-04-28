@@ -2,8 +2,10 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Nianyi.UnityPlayground.WaterSimulation {
-	public partial class Water : MonoBehaviour {
+namespace Nianyi.UnityPlayground.WaterSimulation
+{
+	public partial class Water : MonoBehaviour
+	{
 		#region Serialized Fields
 		public WaterProfile profile;
 		[Tooltip("Sample count in average per unit surface area per physical frame.")]
@@ -11,11 +13,12 @@ namespace Nianyi.UnityPlayground.WaterSimulation {
 		#endregion
 
 		#region Fields
-		private readonly Dictionary<Rigidbody, RigidbodyInfo> floatingBodies = new();
+		public readonly Dictionary<Rigidbody, RigidbodyInfo> floatingBodies = new();
 		#endregion
 
 		#region Functions
-		private void OnBodyEnter(Rigidbody body) {
+		private void OnBodyEnter(Rigidbody body)
+		{
 			if(floatingBodies.ContainsKey(body))
 				return;
 
@@ -23,7 +26,8 @@ namespace Nianyi.UnityPlayground.WaterSimulation {
 			body.SendMessage("OnEnterWater", this, SendMessageOptions.DontRequireReceiver);
 		}
 
-		private void OnBodyExit(Rigidbody body) {
+		private void OnBodyExit(Rigidbody body)
+		{
 			if(!floatingBodies.ContainsKey(body))
 				return;
 
@@ -33,7 +37,8 @@ namespace Nianyi.UnityPlayground.WaterSimulation {
 		#endregion
 
 		#region Life cycle
-		protected void OnTriggerEnter(Collider other) {
+		protected void OnTriggerEnter(Collider other)
+		{
 			if(other == null)
 				return;
 			if(!other.TryGetComponent<Rigidbody>(out var body))
@@ -41,7 +46,8 @@ namespace Nianyi.UnityPlayground.WaterSimulation {
 			OnBodyEnter(body);
 		}
 
-		protected void OnTriggerExit(Collider other) {
+		protected void OnTriggerExit(Collider other)
+		{
 			if(other == null)
 				return;
 			if(!other.TryGetComponent<Rigidbody>(out var body))
@@ -49,12 +55,14 @@ namespace Nianyi.UnityPlayground.WaterSimulation {
 			OnBodyExit(body);
 		}
 
-		protected void FixedUpdate() {
-			foreach(var info in floatingBodies.Values) {
+		protected void FixedUpdate()
+		{
+			foreach(var info in floatingBodies.Values)
+			{
 				if(info.body.isKinematic)
 					continue;
 
-				var samples = PhysicsUtility.SampleSurface(info.colliders, Mathf.CeilToInt(sampleDensity)).ToArray();
+				var samples = PhysicsUtility.SampleSurface(info.colliders, Mathf.CeilToInt(sampleDensity * info.surfaceArea)).ToArray();
 
 				UnifiedPhysicalEffect.Combine(new PhysicalEffect[] {
 					CalculateBuoyancy(info, samples),
