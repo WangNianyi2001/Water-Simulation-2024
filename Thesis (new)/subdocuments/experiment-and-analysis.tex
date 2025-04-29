@@ -88,7 +88,7 @@ To test how the method impacts performance (FPS) as the number of submerged obje
 		\item \itemheader{Comparative Variables}
 		\begin{itemize}
 				\item With water (buoyancy simulation enabled) vs. without water (baseline FPS).
-				\item Different surface sampling densities ($s$): 20, 50, 100 per object per surface area.
+				\item Different surface sampling densities ($s$): 10, 20, 50, 100 per object per surface area.
 		\end{itemize}
 \end{itemize}
 
@@ -134,8 +134,9 @@ To test how the method impacts performance (FPS) as the number of submerged obje
 \subsubsection*{Analysis}
 
 \begin{itemize}
-		\item FPS decreases linearly with the number of submerged objects, consistent with $O(N)$ complexity expectations.
-		\item Under moderate sampling densities (20–50 samples/m$^2$), real-time performance (above 60 FPS) is maintained with up to 30–50 objects.
+	\item FPS decreases linearly with the number of submerged objects.
+	\item Under low sampling density (10 samples/m$^2$), real-time performance (above 60 FPS) is maintained with up to 30–50 objects;
+		under moderate sampling densities (20–50 samples/m$^2$), the threshold is lowered to 15-20 objects.
 \end{itemize}
 
 \subsubsection*{Summary}
@@ -143,60 +144,35 @@ The method demonstrates good scalability for moderate numbers of objects and all
 
 \subsection*{Comparative Analysis}
 
-{\LARGE\color{red}TODO}
-
 \subsubsection*{Objective}
-To further validate the advantages of the proposed method, a comparison is made against a common manual buoyancy approximation method using multiple sphere pontoons.
+
+Traditional sphere pontoon methods typically require manual or semi-automatic configuration based on the specific geometry of each object. For rugged or highly anisotropic objects, insufficient or improperly placed pontoons can lead to poor buoyancy simulation results.  
+This experiment aims to validate that the proposed Monte Carlo surface sampling method can universally adapt to various complex geometries based on true physical distributions without manual intervention.
 
 \subsubsection*{Design}
 
-{\color{red}TODO}
+For each test object, multiple configurations of sphere pontoons with varying numbers and layouts were set up, alongside a configuration using the proposed method for comparison. All objects were released from the air into a water body, and the motion was recorded using the same metrics as in Experiment 1.
+
+Two test models with significantly different shape characteristics were selected:
+\begin{itemize}
+	\item Blender's default "Suzanne" monkey head model (approximately isotropic with a complex surface).
+	\item A slender rod-shaped object (highly anisotropic aspect ratio).
+\end{itemize}
+
+{\color{red}TODO: Two illustrative figures.}
 
 \subsubsection*{Results}
 
-{\color{red}sample figure.}
-
-\begin{figure}[H]
-	\centering
-	\scalebox{1}{
-		\begin{tikzpicture}
-			\begin{axis}[
-				width=5in, height=2in,
-				enlargelimits=false,
-				xlabel={time (seconds)},
-				ylabel={meter},
-				ymin=-4, ymax=6, ytick={-4,-3,...,6},
-				axis y line*=left,
-			]
-				\addplot[black] coordinates { (0,0) (5,0) };
-				\addplot[olive] table[x=t, y=com] {./figures/exp3/suzzane/ours.log};
-				\addplot[blue] table[x=t, y=min] {./figures/exp3/suzzane/ours.log};
-			\end{axis}
-			\begin{axis}[
-				width=5in, height=2in,
-				enlargelimits=false,
-				ylabel={degree},
-				xtick=\empty,
-				ymin=0, ymax=360, ytick={0,60,...,360},
-				axis y line*=right,
-				ylabel near ticks, yticklabel pos=right,
-			]
-				\addplot[color=red] table[x=t, y=rz] {./figures/exp3/suzzane/ours.log};
-			\end{axis}
-			\matrix [draw, below left, fill=white] at (4.25in, 1.25in) {
-				\node[olive, font=\footnotesize] {center-of-mass}; \\
-				\node[blue, font=\footnotesize] {lowest point}; \\
-				\node[red, font=\footnotesize] {pitch}; \\
-			};
-		\end{tikzpicture}
-	}
-	\label{fig:exp3-suzzane}
-\end{figure}
+{\color{red}TODO: Graphs.}
 
 \subsubsection*{Analysis}
 
-{\color{red}TODO}
+\begin{itemize}
+	\item Using the sphere pontoon method, deploying only a few pontoons easily results in unnatural rotations. Achieving acceptable physical behavior requires increasing the number of pontoons and manually fine-tuning their positions and sizes.
+	\item In contrast, the proposed Monte Carlo surface sampling method requires no configuration. It directly estimates buoyancy and torque dynamically based on actual water-contact surfaces, achieving automatic adaptation and efficient simulation even for highly complex geometries.
+\end{itemize}
 
-\subsection*{Summary}
+\subsubsection*{Summary}
 
-{\color{red}TODO}
+This experiment confirms that for objects of varying complexity and shape characteristics, traditional sphere pontoon methods heavily depend on the quantity and precision of configurations to accurately simulate buoyancy and torque.  
+By comparison, the proposed method uses a unified, automated sampling workflow to adapt to diverse geometries without manual intervention, offering a balanced solution between simulation realism and development convenience.
