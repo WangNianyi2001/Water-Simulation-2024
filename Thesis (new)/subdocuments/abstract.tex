@@ -1,15 +1,16 @@
 \begin{abstract}
-	Simulating buoyancy in real-time applications remains a challenging task due to the lack of efficient and general-purpose geometry interfaces in common game engines.
-	In this paper, we introduce a Monte-Carlo-based approach that estimates buoyancy forces by surface sampling, enabling real time performance without sacrificing physical plausibility.
-	Our method computes both force and torque by aggregating weighted contributions from randomly sampled surface points, and is further enhanced with physically motivated frictional terms to stabilize simulation.
-	Experiments in real time environment demonstrate our approach's realism and scalability, and suggest its potential to generalize to other field-object interaction scenarios.
-	This work offers a practical and adaptable solution for real time buoyancy simulation in game development and interactive media.
+Simulating rigid-body buoyancy in real-time applications faces challenges due to the lack of efficient and general-purpose geometry interfaces. Conventional methods often have to sacrifice physical realism or rely on extensive manual configuration.
+This paper proposes a Monte-Carlo-based surface sampling method for buoyancy estimation, which models buoyant forces and torques uniformly by randomly sampling the submerged surfaces of objects and integrating local fluid pressures.
+The method is applicable to complex geometries and allows flexible trade-offs between physical accuracy and computational cost through adjustable sampling densities, without requiring preprocessing or manual proxy configuration.
+Experimental results demonstrate that the proposed method can effectively reproduce floating, sinking, and posture adjustment behaviors in real-time environments, while exhibiting good performance scalability, making it suitable for floating object simulations in interactive applications.
+
 \end{abstract}
 
 \begin{keywords}
 	physical simulation;
 	Monte-Carlo;
-	buoyancy;
+	surface sampling;
+	buoyancy estimation;
 	fluid-solid coupling;
-	rigid body
+	rigid body dynamics;
 \end{keywords}

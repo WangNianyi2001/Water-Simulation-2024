@@ -7,11 +7,13 @@ Through systematic experiments, the method demonstrates excellent performance in
 Future work can extend in the following directions:
 
 \begin{itemize}
-	\item First, the current implementation models local water pressure using a hydrostatic approximation. For cases involving intense flow or high-speed object motion, deviations may occur. Future exploration could involve introducing local fluid dynamics correction models to further improve simulation accuracy in dynamic water environments while maintaining real-time performance.
+	\item The current implementation models local water pressure using a hydrostatic approximation. For cases involving intense flow or high-speed object motion, deviations may occur. Future exploration could involve introducing local fluid dynamics correction models to further improve simulation accuracy in dynamic water environments while maintaining real-time performance.
 
-	\item Second, the current method focuses on one-way coupling, considering only the fluid’s influence on solids. Future work could integrate simplified fluid solvers to incorporate feedback effects from solid motion onto the water body, thereby enabling more realistic two-way fluid-solid interaction simulations. Such an extension is expected to require new fluid dynamics modules and careful balancing between computational resource demands and simulation stability.
+	\item The current method focuses on one-way coupling, considering only the fluid’s influence on solids. Future work could integrate simplified fluid solvers to incorporate feedback effects from solid motion onto the water body, thereby enabling more realistic two-way fluid-solid interaction simulations. Such an extension is expected to require new fluid dynamics modules and careful balancing between computational resource demands and simulation stability.
 
-	\item Additionally, since the computations between surface samples are independent, the method exhibits good parallelism. Future optimization based on GPU acceleration or multi-core parallel frameworks could significantly enhance the sampling and integration process, allowing for higher sampling densities and larger numbers of floating objects while maintaining real-time performance in more complex scenes.
+	\item Since the computations between surface samples are independent, the method exhibits good parallelism. Future optimization based on GPU acceleration or multi-core parallel frameworks could significantly enhance the sampling and integration process, allowing for higher sampling densities and larger numbers of floating objects while maintaining real-time performance in more complex scenes.
+
+	\item Regarding the trade-off between real-time performance and physical accuracy, future work may consider introducing heuristic sampling strategies. By dynamically adjusting the sampling density and force model parameters based on object shape characteristics, local motion states, or interactio
 \end{itemize}
 
 Although these directions extend beyond the initial scope of this study, they provide promising paths for further improving the precision and expressiveness of real-time water physics simulation.
