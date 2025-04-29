@@ -2,7 +2,7 @@
 
 This section presents a series of experiments to validate the proposed method in terms of physical realism and performance scalability. We also perform a comparative analysis against existing common approximation methods to evaluate its applicability and advantages in real-world scenarios.
 
-\subsection*{Experiment 1: Validation of Physical Realism}
+\subsection*{Validation of Physical Realism}
 
 \subsubsection*{Objective}
 To verify whether the proposed method can accurately simulate the floating, sinking, and rotational behaviors of rigid bodies in fluids, with a particular focus on the correctness of torque effects.
@@ -48,6 +48,7 @@ To verify whether the proposed method can accurately simulate the floating, sink
 			\begin{axis}[
 				width=5in, height=2in,
 				enlargelimits=false,
+				xtick=\empty,
 				ylabel={degree},
 				ymin=0, ymax=90, ytick={0,15,...,90},
 				axis y line*=right,
@@ -75,7 +76,7 @@ To verify whether the proposed method can accurately simulate the floating, sink
 \subsubsection*{Summary}
 The experimental results confirm that the proposed method can effectively simulate buoyancy and induced rotational behaviors, with dynamics aligning with physical expectations.
 
-\subsection*{Experiment 2: Performance and Scalability Test}
+\subsection*{Performance and Scalability Test}
 
 \subsubsection*{Objective}
 To test how the method impacts performance (FPS) as the number of submerged objects increases, and to evaluate load capacity under different sampling densities.
@@ -140,7 +141,7 @@ To test how the method impacts performance (FPS) as the number of submerged obje
 \subsubsection*{Summary}
 The method demonstrates good scalability for moderate numbers of objects and allows flexible trade-offs between accuracy and performance by adjusting sampling density.
 
-\subsection*{Experiment 3: Comparative Analysis}
+\subsection*{Comparative Analysis}
 
 {\LARGE\color{red}TODO}
 
@@ -153,7 +154,44 @@ To further validate the advantages of the proposed method, a comparison is made 
 
 \subsubsection*{Results}
 
-{\color{red}TODO}
+{\color{red}sample figure.}
+
+\begin{figure}[H]
+	\centering
+	\scalebox{1}{
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=5in, height=2in,
+				enlargelimits=false,
+				xlabel={time (seconds)},
+				ylabel={meter},
+				ymin=-4, ymax=6, ytick={-4,-3,...,6},
+				axis y line*=left,
+			]
+				\addplot[black] coordinates { (0,0) (5,0) };
+				\addplot[olive] table[x=t, y=com] {./figures/exp3/suzzane/ours.log};
+				\addplot[blue] table[x=t, y=min] {./figures/exp3/suzzane/ours.log};
+			\end{axis}
+			\begin{axis}[
+				width=5in, height=2in,
+				enlargelimits=false,
+				ylabel={degree},
+				xtick=\empty,
+				ymin=0, ymax=360, ytick={0,60,...,360},
+				axis y line*=right,
+				ylabel near ticks, yticklabel pos=right,
+			]
+				\addplot[color=red] table[x=t, y=rz] {./figures/exp3/suzzane/ours.log};
+			\end{axis}
+			\matrix [draw, below left, fill=white] at (4.25in, 1.25in) {
+				\node[olive, font=\footnotesize] {center-of-mass}; \\
+				\node[blue, font=\footnotesize] {lowest point}; \\
+				\node[red, font=\footnotesize] {pitch}; \\
+			};
+		\end{tikzpicture}
+	}
+	\label{fig:exp3-suzzane}
+\end{figure}
 
 \subsubsection*{Analysis}
 

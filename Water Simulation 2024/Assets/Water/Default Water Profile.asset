@@ -15,4 +15,4 @@ MonoBehaviour:
   density: 1.33
   form: 0.5
   viscosity: 0
-  dissipation: 1
+  dissipation: 0.5
