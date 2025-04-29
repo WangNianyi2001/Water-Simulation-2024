@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Nianyi.UnityPlayground {
+namespace WaterSimulation {
 	public class RigidbodyInfoLogger : MonoBehaviour {
 		#region Serialized fields
 		[Min(0)] public float pauseTime = 5.0f;

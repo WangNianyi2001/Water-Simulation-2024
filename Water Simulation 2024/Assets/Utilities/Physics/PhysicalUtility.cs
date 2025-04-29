@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Nianyi.UnityPlayground {
+namespace WaterSimulation {
 	public static class PhysicsUtility {
 		#region Collider
 		public struct SurfaceSample {

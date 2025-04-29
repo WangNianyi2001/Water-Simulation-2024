@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Linq;
 
-namespace Nianyi.UnityPlayground {
+namespace WaterSimulation {
 	public class RigidbodyInfo {
 		public readonly Rigidbody body;
 		public readonly Collider[] colliders;

@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Nianyi.UnityPlayground
+namespace WaterSimulation
 {
 	public class ObjectSpawner : MonoBehaviour
 	{

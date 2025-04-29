@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Nianyi.UnityPlayground.WaterSimulation {
+namespace WaterSimulation {
 	public partial class Water : MonoBehaviour {
 		/// <returns>Depth to the surface, downward is negative.</returns>
 		protected float GetDepthAt(Vector3 position) {
@@ -23,7 +23,7 @@ namespace Nianyi.UnityPlayground.WaterSimulation {
 
 				totalWeight += sample.weight;
 
-				ForceAtPosition force = new ForceAtPosition(info.body) {
+				ForceAtPosition force = new(info.body) {
 					force = sample.normal * (-1f * profile.density * g * -depth * sample.weight),
 					position = sample.position,
 				};

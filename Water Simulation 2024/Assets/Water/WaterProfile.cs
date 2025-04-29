@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Nianyi.UnityPlayground.WaterSimulation {
+namespace WaterSimulation {
 	[CreateAssetMenu(menuName = "Nianyi/Water Profile")]
 	public class WaterProfile : ScriptableObject {
 		[Min(0)] public float density = 1.33f;

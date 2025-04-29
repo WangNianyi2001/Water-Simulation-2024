@@ -27,7 +27,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 777829082908485432}
   - {fileID: 3013186466241886426}
@@ -205,7 +205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 079b5651d2257a746b9076c885254188, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  profile: {fileID: 11400000, guid: c9fb9310a86f1cc48869e2f95bd066f6, type: 2}
+  profile: {fileID: 11400000, guid: f26eae39e0eae4b4c8d60b9e5db5f4e7, type: 2}
   sampleDensity: 50
 --- !u!114 &866202782831092149
 MonoBehaviour:

@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Nianyi.UnityPlayground {
+namespace WaterSimulation {
 	public interface PhysicalEffect {
 		public Rigidbody Body { get; }
 		public void Apply();

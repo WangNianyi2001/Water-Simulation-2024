@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Nianyi.UnityPlayground.WaterSimulation {
+namespace WaterSimulation {
 	public class RandomizedObjectSpawner : MonoBehaviour {
 		#region Serialized fields
 		public List<GameObject> prefabs = new();

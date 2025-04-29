@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Nianyi.UnityPlayground.WaterSimulation
+namespace WaterSimulation
 {
 	public class FpsLogger : MonoBehaviour
 	{
