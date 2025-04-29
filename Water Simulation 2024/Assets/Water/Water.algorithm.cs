@@ -12,7 +12,7 @@ namespace WaterSimulation {
 			if(samples == null)
 				return default;
 
-			List<ForceAtPosition> forces = new();
+			List<ForceAtPosition> forces = new(samples.Count);
 			float totalWeight = samples.Aggregate(0f, (sum, sample) => sum + sample.weight);
 
 			float g = Physics.gravity.magnitude;
@@ -39,7 +39,7 @@ namespace WaterSimulation {
 				if(samples == null)
 					return default;
 
-				List<ForceAtPosition> forces = new();
+				List<ForceAtPosition> forces = new(samples.Count);
 				float totalArea = samples.Aggregate(0f, (sum, sample) => sum + sample.weight);
 
 				var centerOfMass = info.body.GetWorldCenterOfMass();

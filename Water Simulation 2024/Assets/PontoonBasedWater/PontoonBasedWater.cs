@@ -48,7 +48,7 @@ namespace WaterSimulation
 		static float GetSubmergedVolume(float radius, float h)
 		{
 			h = Mathf.Clamp(h / radius, -1, 1);
-			return Mathf.Pow(radius, 3) * TRI_PI * (Mathf.Pow(h, 3) - 3 * h + 2);
+			return Mathf.Pow(radius, 3) * TRI_PI * (2 + Mathf.Pow(h, 3) - 3 * h);
 		}
 
 		protected void OnTriggerEnter(Collider other)

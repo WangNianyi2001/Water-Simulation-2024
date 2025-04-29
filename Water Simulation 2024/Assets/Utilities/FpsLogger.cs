@@ -7,7 +7,6 @@ namespace WaterSimulation
 	public class FpsLogger : MonoBehaviour
 	{
 		public Water water;
-		public ObjectSpawner spawner;
 
 		public int Count
 		{
@@ -15,8 +14,6 @@ namespace WaterSimulation
 			{
 				if(water && water.isActiveAndEnabled)
 					return water.floatingBodies.Count;
-				if(spawner)
-					return spawner.spawnObjects.Count;
 				return 0;
 			}
 		}

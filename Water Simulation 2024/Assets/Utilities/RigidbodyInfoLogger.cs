@@ -2,10 +2,6 @@ using UnityEngine;
 
 namespace WaterSimulation {
 	public class RigidbodyInfoLogger : MonoBehaviour {
-		#region Serialized fields
-		[Min(0)] public float pauseTime = 5.0f;
-		#endregion
-
 		#region Fields
 		private new Collider collider;
 		private Rigidbody body;
