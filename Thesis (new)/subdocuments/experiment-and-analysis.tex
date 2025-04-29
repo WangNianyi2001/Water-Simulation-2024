@@ -43,7 +43,9 @@ To verify whether the proposed method can accurately simulate the floating, sink
 			]
 				\addplot[black] coordinates { (0,0) (5,0) };
 				\addplot[olive] table[x=t, y=com] {../Thesis/figures/simulation-record.dat};
+				\label{plot:exp1-com}
 				\addplot[blue] table[x=t, y=min] {../Thesis/figures/simulation-record.dat};
+				\label{plot:exp1-lowest}
 			\end{axis}
 			\begin{axis}[
 				width=5in, height=2in,
@@ -53,16 +55,18 @@ To verify whether the proposed method can accurately simulate the floating, sink
 				ymin=0, ymax=90, ytick={0,15,...,90},
 				axis y line*=right,
 				ylabel near ticks, yticklabel pos=right,
+				legend style={at={(0.98,0.4)}, anchor=south east, legend columns=1}
 			]
+				\addlegendimage{/pgfplots/refstyle=plot:exp1-com}
+				\addlegendentry{center-of-mass}
+				\addlegendimage{/pgfplots/refstyle=plot:exp1-lowest}
+				\addlegendentry{lowest point}
 				\addplot[color=red] table[x=t, y=rx] {../Thesis/figures/simulation-record.dat};
+				\addlegendentry{pitch}
 			\end{axis}
-			\matrix [draw, below left, fill=white] at (4.25in, 1.25in) {
-				\node[olive, font=\footnotesize] {center-of-mass}; \\
-				\node[blue, font=\footnotesize] {lowest point}; \\
-				\node[red, font=\footnotesize] {pitch}; \\
-			};
 		\end{tikzpicture}
 	}
+	\caption{Motion data gathered from real-time logs.}
 	\label{fig:exp1}
 \end{figure}
 
@@ -128,6 +132,7 @@ To test how the method impacts performance (FPS) as the number of submerged obje
 			\addlegendentry{$s=100$}
 		\end{axis}
 	\end{tikzpicture}
+	\caption{FPS data gathered from running simulations at different sampling densities.}
 	\label{fig:exp2}
 \end{figure}
 
@@ -151,25 +156,200 @@ This experiment aims to validate that the proposed Monte Carlo surface sampling 
 
 \subsubsection*{Design}
 
-For each test object, multiple configurations of sphere pontoons with varying numbers and layouts were set up, alongside a configuration using the proposed method for comparison. All objects were released from the air into a water body, and the motion was recorded using the same metrics as in Experiment 1.
+For each test object, multiple configurations of sphere pontoons with varying numbers and layouts were set up, alongside a configuration using the proposed method for comparison. All objects were released from the air into a water body (Figure \ref{fig:exp3-setup}), and the motion was recorded using the same metrics as in Experiment 1.
 
 Two test models with significantly different shape characteristics were selected:
 \begin{itemize}
-	\item Blender's default "Suzanne" monkey head model (approximately isotropic with a complex surface).
-	\item A slender rod-shaped object (highly anisotropic aspect ratio).
+	\item Blender's default ``Suzanne'' monkey head model (approximately isotropic with a complex surface).
+	\item A long wooden bat (highly anisotropic aspect ratio).
 \end{itemize}
 
-{\color{red}TODO: Two illustrative figures.}
+\begin{figure}[H]
+	\centering
+	\begin{subcaptionblock}{0.55\textwidth}
+		\centering
+		\includegraphics[height=1.3in]{./figures/exp3/suzzanes.png}
+	\end{subcaptionblock}
+	\begin{subcaptionblock}{0.4\textwidth}
+		\centering
+		\includegraphics[height=1.3in]{./figures/exp3/bats.png}
+	\end{subcaptionblock}
+	\caption{The experiment setups.}
+	\label{fig:exp3-setup}
+\end{figure}
 
 \subsubsection*{Results}
 
-{\color{red}TODO: Graphs.}
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}
+		\def\plotsize{width=6in, height=4in, enlargelimits=false}
+
+		% 高度
+		\begin{axis}[
+			\plotsize,
+			xlabel={time (seconds)},
+			xmin=0, xmax=5,
+			ylabel={meter},
+			ymin=-4, ymax=6,
+			axis y line*=left,
+		]
+			\addplot[black,dashed] table[x=t, y=com] {./figures/exp3/suzzane/ours.log};
+			\addplot[black,dotted] table[x=t, y=min] {./figures/exp3/suzzane/ours.log};
+
+			\addplot[red,dashed] table[x=t, y=com] {./figures/exp3/suzzane/p1.log};
+			\addplot[red,dotted] table[x=t, y=min] {./figures/exp3/suzzane/p1.log};
+
+			\addplot[green,dashed] table[x=t, y=com] {./figures/exp3/suzzane/p3.log};
+			\addplot[green,dotted] table[x=t, y=min] {./figures/exp3/suzzane/p3.log};
+			
+			\addplot[blue,dashed] table[x=t, y=com] {./figures/exp3/suzzane/p6.log};
+			\addplot[blue,dotted] table[x=t, y=min] {./figures/exp3/suzzane/p6.log};
+		\end{axis}
+
+		\begin{axis}[
+			\plotsize,
+			xtick=\empty,
+			xmin=0, xmax=5,
+			ylabel={degree},
+			ymin=270, ymax=360, ytick={270,285,...,360},
+			axis y line*=right,
+			ylabel near ticks, yticklabel pos=right,
+			legend style={
+				at={(1,1)},
+				anchor=north east,
+				nodes={scale=0.8},
+			},
+		]
+			% 角度
+			\def\rt{rx}
+			\def\rsettings{forget plot}
+			\addplot[\rsettings, color=black] table[x=t, y=\rt] {./figures/exp3/suzzane/ours.log};
+			\addplot[\rsettings, color=red] table[x=t, y=\rt] {./figures/exp3/suzzane/p1.log};
+			\addplot[\rsettings, color=blue] table[x=t, y=\rt] {./figures/exp3/suzzane/p3.log};
+			\addplot[\rsettings, color=green] table[x=t, y=\rt] {./figures/exp3/suzzane/p6.log};
+
+			% 图例
+
+			% 第一列（线条类）
+			\addlegendimage{black}
+			\addlegendentry{pitch}
+
+			\addlegendimage{black, dashed}
+			\addlegendentry{center-of-mass}
+
+			\addlegendimage{black, dotted}
+			\addlegendentry{lowest point}
+
+			\addlegendimage{white, opacity=0}
+			\addlegendentry{}
+
+			% 第二列（方块类）
+			\addlegendimage{only marks, mark=square*, mark size=3pt, black}
+			\addlegendentry{our method}
+
+			\addlegendimage{only marks, mark=square*, mark size=3pt, red}
+			\addlegendentry{1 pontoon}
+
+			\addlegendimage{only marks, mark=square*, mark size=3pt, green}
+			\addlegendentry{3 pontoons}
+
+			\addlegendimage{only marks, mark=square*, mark size=3pt, blue}
+			\addlegendentry{6 pontoons}
+		\end{axis}
+	\end{tikzpicture}
+	\caption{Data collected from the Suzzane case.}
+	\label{fig:exp3-suzzane}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}
+		\def\plotsize{width=6in, height=2.5in, enlargelimits=false}
+
+		% 高度
+		\begin{axis}[
+			\plotsize,
+			xlabel={time (seconds)},
+			xmin=0, xmax=5,
+			ylabel={meter},
+			ymin=-2, ymax=5,
+			axis y line*=left,
+		]
+			\addplot[black,dashed] table[x=t, y=com] {./figures/exp3/bat/ours.log};
+			\addplot[black,dotted] table[x=t, y=min] {./figures/exp3/bat/ours.log};
+
+			\addplot[red,dashed] table[x=t, y=com] {./figures/exp3/bat/p1.log};
+			\addplot[red,dotted] table[x=t, y=min] {./figures/exp3/bat/p1.log};
+
+			\addplot[green,dashed] table[x=t, y=com] {./figures/exp3/bat/p2.log};
+			\addplot[green,dotted] table[x=t, y=min] {./figures/exp3/bat/p2.log};
+			
+			\addplot[blue,dashed] table[x=t, y=com] {./figures/exp3/bat/p3.log};
+			\addplot[blue,dotted] table[x=t, y=min] {./figures/exp3/bat/p3.log};
+		\end{axis}
+
+		\begin{axis}[
+			\plotsize,
+			xtick=\empty,
+			xmin=0, xmax=5,
+			ylabel={degree},
+			ymin=40, ymax=90, ytick={40,45,60,...,90},
+			axis y line*=right,
+			ylabel near ticks, yticklabel pos=right,
+			legend style={
+				at={(1,1)},
+				anchor=north east,
+				nodes={scale=0.8},
+			},
+		]
+			% 角度
+			\def\rt{rx}
+			\def\rsettings{forget plot}
+			\addplot[\rsettings, color=black] table[x=t, y=\rt] {./figures/exp3/bat/ours.log};
+			\addplot[\rsettings, color=red] table[x=t, y=\rt] {./figures/exp3/bat/p1.log};
+			\addplot[\rsettings, color=blue] table[x=t, y=\rt] {./figures/exp3/bat/p2.log};
+			\addplot[\rsettings, color=green] table[x=t, y=\rt] {./figures/exp3/bat/p3.log};
+
+			% 图例
+
+			% 第一列（线条类）
+			\addlegendimage{black}
+			\addlegendentry{pitch}
+
+			\addlegendimage{black, dashed}
+			\addlegendentry{center-of-mass}
+
+			\addlegendimage{black, dotted}
+			\addlegendentry{lowest point}
+
+			\addlegendimage{white, opacity=0}
+			\addlegendentry{}
+
+			% 第二列（方块类）
+			\addlegendimage{only marks, mark=square*, mark size=3pt, black}
+			\addlegendentry{our method}
+
+			\addlegendimage{only marks, mark=square*, mark size=3pt, red}
+			\addlegendentry{1 pontoon}
+
+			\addlegendimage{only marks, mark=square*, mark size=3pt, green}
+			\addlegendentry{2 pontoons}
+
+			\addlegendimage{only marks, mark=square*, mark size=3pt, blue}
+			\addlegendentry{3 pontoons}
+		\end{axis}
+	\end{tikzpicture}
+	\caption{Data collected from the wooden bat case.}
+	\label{fig:exp3-bat}
+\end{figure}
 
 \subsubsection*{Analysis}
 
 \begin{itemize}
-	\item Using the sphere pontoon method, deploying only a few pontoons easily results in unnatural rotations. Achieving acceptable physical behavior requires increasing the number of pontoons and manually fine-tuning their positions and sizes.
-	\item In contrast, the proposed Monte Carlo surface sampling method requires no configuration. It directly estimates buoyancy and torque dynamically based on actual water-contact surfaces, achieving automatic adaptation and efficient simulation even for highly complex geometries.
+	\item Under the same configuration of the water's physical properties, our method tends to create a softer response.
+	\item Using the sphere pontoon method, deploying only one pontoon easily results in unnatural rotations (especially in the bat case, where using only one pontoon couldn't make the bat's pitch converge to zero). Achieving acceptable physical behavior requires increasing the number of pontoons and manually fine-tuning their positions and sizes.
+	\item In contrast, our Monte-Carlo-based method requires no configuration. It directly estimates buoyancy and torque dynamically based on actual water-contact surfaces, achieving automatic adaptation and efficient simulation even for highly complex geometries.
 \end{itemize}
 
 \subsubsection*{Summary}
